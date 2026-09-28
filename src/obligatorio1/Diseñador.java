@@ -4,26 +4,24 @@
 */
 package obligatorio1;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Diseñador {
     
     private String nombre;
     private String direccion;
     private String email;
+    private ArrayList<Mural> listaDeMurales;
+    private ArrayList<Ficha> listaDeFichas;
     
-    /*
-    Seguramente necesitemos una lista (array) de murales para poder tener la lista de 
-    murales que hizo este Diseñador
-    */
-    //private ArrayList<Mural> listaDeMurales;
     
     //Constructor
     public Diseñador (String unNombre, String unaDireccion, String unEmail){
         this.nombre = unNombre;
         this.direccion = unaDireccion;
         this.email = unEmail;
-        //listaDeMurales = new ArrayList<Mural>();
+        listaDeMurales = new ArrayList<Mural>();
+        listaDeFichas = new ArrayList<Ficha>();
     }
     
     //getters & setters
@@ -50,6 +48,22 @@ public class Diseñador {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ArrayList<Mural> getListaDeMurales() {
+        return listaDeMurales;
+    }
+
+    public void setListaDeMurales(ArrayList<Mural> listaDeMurales) {
+        this.listaDeMurales = listaDeMurales;
+    }
+
+    public ArrayList<Ficha> getListaDeFichas() {
+        return listaDeFichas;
+    }
+
+    public void setListaDeFichas(ArrayList<Ficha> listaDeFichas) {
+        this.listaDeFichas = listaDeFichas;
     }
     
     //agaregamos toString? si lo ponemos, ver como ponerlo

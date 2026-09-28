@@ -7,29 +7,24 @@ package obligatorio1;
 public class Mural {
     private Diseñador diseñador;
     private String nombre;
-    private String formato;
+    private char formato;
+    private char formatoOriginal; //no se va a poder modificar
     private Ficha[][] mural; //para generar el mural
-    private Ficha[][] muralOriginal; //creo que se puede restaurar... guardar la matriz original
     private Ficha ficha1;
     private Ficha ficha2;
     
     //Constructor
-    public Mural(Diseñador unDiseñador, String unNombre, String unFormato, Ficha unaFicha1, Ficha unaFicha2) {
+    public Mural(Diseñador unDiseñador, String unNombre, char unFormato, Ficha unaFicha1, Ficha unaFicha2) {
         this.diseñador = unDiseñador;
         this.nombre = unNombre;
         this.formato = unFormato;
+        this.formatoOriginal = unFormato;
         this.ficha1 = unaFicha1;
         this.ficha2 = unaFicha2;
-        /*
-        Los murales estarán organizados como matrices rectangulares de 
-        10 filas y 12 columnas donde en cada posición va una ficha
-        */
-        this.mural = new Ficha[10][12];
-        this.muralOriginal = new Ficha[10][12];
+        this.mural = new Ficha[10][12]; //instancia de mural compuesto con fichas
     }
     
     //Setters & Getters
-
     public Diseñador getDiseñador() {
         return diseñador;
     }
@@ -46,12 +41,20 @@ public class Mural {
         this.nombre = nombre;
     }
 
-    public String getFormato() {
+    public char getFormato() {
         return formato;
     }
 
-    public void setFormato(String formato) {
+    public void setFormato(char formato) {
         this.formato = formato;
+    }
+    
+    public char getFormatoOriginal() {
+        return formatoOriginal;
+    }
+
+    public void setFormatoOriginal(char formatoOriginal) {
+        this.formatoOriginal = formatoOriginal;
     }
 
     public Ficha[][] getMural() {
@@ -60,14 +63,6 @@ public class Mural {
 
     public void setMural(Ficha[][] mural) {
         this.mural = mural;
-    }
-
-    public Ficha[][] getMuralOriginal() {
-        return muralOriginal;
-    }
-
-    public void setMuralOriginal(Ficha[][] muralOriginal) {
-        this.muralOriginal = muralOriginal;
     }
 
     public Ficha getFicha1() {
@@ -85,7 +80,6 @@ public class Mural {
     public void setFicha2(Ficha ficha2) {
         this.ficha2 = ficha2;
     }
-    
-    
+   
     //ver si necesitamos un toString
 }
