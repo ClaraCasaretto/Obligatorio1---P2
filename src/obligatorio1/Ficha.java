@@ -9,10 +9,10 @@ public class Ficha {
     private String nombre;
     private String diseñoChico;
     private String diseñoGrande;
-    private char color;
+    private String color;
     
     //Constructor
-    public Ficha(String nombre, String diseñoChico, String diseñoGrande, char color) {
+    public Ficha(String nombre, String diseñoChico, String diseñoGrande, String color) {
         this.nombre = nombre;
         this.diseñoChico = diseñoChico;
         this.diseñoGrande = diseñoGrande;
@@ -45,11 +45,11 @@ public class Ficha {
         this.diseñoGrande = diseñoGrande;
     }
 
-    public char getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(char color) {
+    public void setColor(String color) {
         this.color = color;
     }
     

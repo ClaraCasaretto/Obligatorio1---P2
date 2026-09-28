@@ -142,7 +142,10 @@ public class InterfazConsola {
     
     private void registrarFicha(){
         String nombre = "";
-        char color;
+        String color;
+        String diseñoChico = "";
+        String diseñoGrande = "";
+
         
         System.out.println("====================================================");
         System.out.println("============== REGISTRAR NUEVA FICHA ===============");
@@ -158,28 +161,57 @@ public class InterfazConsola {
         //validacion si es un color que se puede. Estos son los que se pueden: 
         //"R: rojo, "A": azul, "B": blanco, "N": negro, "M": amarillo, "V": verde,
         //"G": magenta, "C": celeste
-        System.out.println("========== Ingrese el color de la ficha: ==========="); 
-        color = sc.nextLine().toUpperCase().charAt(0);
+        System.out.println("========== Ingrese el color de la ficha: ===========");
+        System.out.println("R: Rojo | A: Azul | B: Blanco | N: Negro");
+        System.out.println("M: Amarillo | V: Verde | G: Magenta | C: Celeste");
+        System.out.println("====================================================");
+        color = sc.nextLine().toUpperCase();
         
-        while (color != 'R' && color != 'A' && color != 'B'&& color != 'N' && 
-               color != 'M' && color != 'V' && color != 'G' && color != 'C') {
+        while (!color.equals("R") && !color.equals("A") && !color.equals("B") && 
+               !color.equals("N") && !color.equals("M") && !color.equals("V") && 
+               !color.equals("G") && !color.equals("C")) {
             System.out.println("====================================================");
             System.out.println("================ Color inválido ====================");
+            System.out.println("R: Rojo | A: Azul | B: Blanco | N: Negro");
+            System.out.println("M: Amarillo | V: Verde | G: Magenta | C: Celeste");
             System.out.println("================ Ingrese otro color: ===============");
-            color = sc.nextLine().toUpperCase().charAt(0);
+            color = sc.nextLine().toUpperCase();
         }
         
         //validar lo de diseño chico o grande
+        System.out.println("====================================================");
+        System.out.println("===== Ingrese el diseño chico (9 caracteres): =====");
+        diseñoChico = sc.nextLine();
+        while (diseñoChico.length() != 9) {
+            System.out.println("====================================================");
+            System.out.println("================= Diseño inválido ==================");
+            System.out.println("== El diseño debe tener exactamente 9 caracteres. ==");
+            System.out.println("=============== Ingrese nuevamente: ================");
+            diseñoChico = sc.nextLine();
+        }
         
-        
+        System.out.println("====================================================");
+        System.out.println("==== Ingrese el diseño grande (25 caracteres): ====");
+        diseñoGrande = sc.nextLine();
+            while (diseñoGrande.length() != 25) {
+                System.out.println("====================================================");
+                System.out.println("================= Diseño inválido ==================");
+                System.out.println("= El diseño debe tener exactamente 25 caracteres. =");
+                System.out.println("=============== Ingrese nuevamente: ================");
+                diseñoGrande = sc.nextLine();
+            }
         
         System.out.println("====================================================");
         System.out.println("================ ¡Ficha registrada! ================");
         System.out.println("================ Datos de la ficha: ================");
         System.out.println("Nombre: " + nombre);
         System.out.println("Color: " + color);
-        //System.out.println("Mail: " + );
-        System.out.println("====================================================");  
+        System.out.println("Diseño Chico: " + diseñoChico);
+        System.out.println("Diseño Grande: " + diseñoGrande);
+        System.out.println("====================================================");
+        
+        Ficha ficha = new Ficha(nombre, diseñoChico, diseñoGrande, color);
+        sistema.actualizarListaFichas(ficha);
     }
     
     
