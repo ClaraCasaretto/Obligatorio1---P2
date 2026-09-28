@@ -26,6 +26,7 @@ public class Sistema {
         this.listaDiseñadores = listaDiseñador;
     }
     
+    //agrega un Diseñador a la lista Diseñador
     public void actualizarListaDiseñadores(Diseñador unDiseñador){
         this.listaDiseñadores.add(unDiseñador);
     }
@@ -49,7 +50,21 @@ public class Sistema {
         this.listaFichas = listaFichas;
     }
     
+    //agrega una ficha en la lista de fichas
+    public void actualizarListaFichas(Ficha unaFicha){
+        this.listaFichas.add(unaFicha);
+    }
     
+    //valida si ya existe una ficha con ese nombre
+    public boolean existeFicha(String unNombre){
+        boolean yaExiste = false;
+        for (int i = 0; i < this.listaFichas.size() && !yaExiste; i++) {
+            if(this.listaFichas.get(i).getNombre().equals(unNombre)){
+                yaExiste = true;
+            }
+        }
+        return yaExiste;
+    }
     
     
 }

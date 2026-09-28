@@ -45,6 +45,7 @@ public class InterfazConsola {
 
                 case "3":
                     //Registrar ficha
+                    this.registrarFicha();
                     break;
 
                 case "4":
@@ -127,8 +128,7 @@ public class InterfazConsola {
         
         System.out.println("================== Ingrese mail: ==================");
         mail = sc.nextLine().toUpperCase();
-        
-        System.out.println("====================================================");        
+               
         System.out.println("============== ¡Diseñador registrado! ==============");
         System.out.println("=============== Datos del Diseñador: ===============");
         System.out.println("Nombre: " + nombre);
@@ -138,6 +138,48 @@ public class InterfazConsola {
         
         Diseñador diseñador = new Diseñador(nombre, direccion, mail);
         sistema.actualizarListaDiseñadores(diseñador);
+    }
+    
+    private void registrarFicha(){
+        String nombre = "";
+        char color;
+        
+        System.out.println("====================================================");
+        System.out.println("============== REGISTRAR NUEVA FICHA ===============");
+        System.out.println("============ Ingrese nombre de la ficha: ============");
+        nombre = sc.nextLine().toUpperCase();
+        
+        while(sistema.existeFicha(nombre)){
+            System.out.println("============= ¡Ya existe esa ficha! ============");
+            System.out.println("============= Ingrese otro nombre: ==============");            
+            nombre = sc.nextLine().toUpperCase();
+        }
+        
+        //validacion si es un color que se puede. Estos son los que se pueden: 
+        //"R: rojo, "A": azul, "B": blanco, "N": negro, "M": amarillo, "V": verde,
+        //"G": magenta, "C": celeste
+        System.out.println("========== Ingrese el color de la ficha: ==========="); 
+        color = sc.nextLine().toUpperCase().charAt(0);
+        
+        while (color != 'R' && color != 'A' && color != 'B'&& color != 'N' && 
+               color != 'M' && color != 'V' && color != 'G' && color != 'C') {
+            System.out.println("====================================================");
+            System.out.println("================ Color inválido ====================");
+            System.out.println("================ Ingrese otro color: ===============");
+            color = sc.nextLine().toUpperCase().charAt(0);
+        }
+        
+        //validar lo de diseño chico o grande
+        
+        
+        
+        System.out.println("====================================================");
+        System.out.println("================ ¡Ficha registrada! ================");
+        System.out.println("================ Datos de la ficha: ================");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Color: " + color);
+        //System.out.println("Mail: " + );
+        System.out.println("====================================================");  
     }
     
     
