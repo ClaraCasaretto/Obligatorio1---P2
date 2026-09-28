@@ -25,6 +25,21 @@ public class Sistema {
     public void setListaDiseñador(ArrayList<Diseñador> listaDiseñador) {
         this.listaDiseñadores = listaDiseñador;
     }
+    
+    public void actualizarListaDiseñadores(Diseñador unDiseñador){
+        this.listaDiseñadores.add(unDiseñador);
+    }
+    
+    //valida si ya existe un diseñador con ese nombre
+    public boolean existeDiseñador(String unNombre){
+        boolean yaExiste = false;
+        for (int i = 0; i < this.listaDiseñadores.size() && !yaExiste; i++) {
+            if(this.listaDiseñadores.get(i).getNombre().equals(unNombre)){
+                yaExiste = true;
+            }
+        }
+        return yaExiste;
+    }
 
     public ArrayList<Ficha> getListaFichas() {
         return listaFichas;
