@@ -226,50 +226,79 @@ public class InterfazConsola {
         String nombre = "";
         char formato;
         
-        System.out.println("====================================================");
-        System.out.println("================ CREACIÓN DEL MURAL ================");
-        System.out.println("============== Seleccione un diseñador: ============");
-        for(int i= 0; i< sistema.getListaDiseñador().size(); i++){
-            System.out.println((i+1) + ")" + sistema.getListaDiseñador().get(i).getNombre());
-        }
-        System.out.println("============ Ingrese número del diseñador: ==========");    
-        opcionDiseñador = Integer.parseInt(sc.nextLine());
-        while (opcionDiseñador < 1 || opcionDiseñador > sistema.getListaDiseñador().size()) {
+        //validar que haya diseñadores registrados
+        if (sistema.getListaDiseñador().isEmpty()) {
             System.out.println("====================================================");
-            System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+            System.out.println("======== No hay diseñadores registrados ============");
+            System.out.println("===== Debe registrar un diseñador primero ==========");
+            System.out.println("====================================================");
+            
+            
+        //NO SE SI SE TIENE Q HCER ESTA VALIDACION PORQEU POR DEFECTO 
+        //VAN A HABER FICHAS CREADAS...    
+        //PREGUNTARLE A MANU QUE OPINA
+            
+        }else if(sistema.getListaFichas().size() < 2){
+            System.out.println("====================================================");
+            System.out.println("========== No hay suficientes fichas ===============");
+            System.out.println("===== Debe registrar al menos 2 fichas =============");
+            System.out.println("====================================================");
+        }
+        else{
+            System.out.println("====================================================");
+            System.out.println("================ CREACIÓN DEL MURAL ================");
+            System.out.println("============== Seleccione un diseñador: ============");
+            for(int i= 0; i< sistema.getListaDiseñador().size(); i++){
+                System.out.println((i+1) + ")" + sistema.getListaDiseñador().get(i).getNombre());
+            }
+            System.out.println("====================================================");
+            System.out.println("============ Ingrese número del diseñador: ==========");    
             opcionDiseñador = Integer.parseInt(sc.nextLine());
-        }
-        diseñador = sistema.getListaDiseñador().get(opcionDiseñador - 1);
+            while (opcionDiseñador < 1 || opcionDiseñador > sistema.getListaDiseñador().size()) {
+                System.out.println("====================================================");
+                System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                System.out.println("====================================================");
+                opcionDiseñador = Integer.parseInt(sc.nextLine());
+            }
+            diseñador = sistema.getListaDiseñador().get(opcionDiseñador - 1);
 
-        System.out.println("====================================================");
-        System.out.println("============= Ingrese nombre del mural: ============");
-        nombre = sc.nextLine().toUpperCase();
-        
-        while(sistema.existeMural(nombre)){
             System.out.println("====================================================");
-            System.out.println("============== ¡Ya existe ese mural! ===============");
-            System.out.println("=============== Ingrese otro nombre: ===============");            
+            System.out.println("============= Ingrese nombre del mural: ============");
+            System.out.println("====================================================");
             nombre = sc.nextLine().toUpperCase();
-        }
-        
-        System.out.println("====================================================");
-        System.out.println("============ Seleccione tipo de formato: ===========");
-        System.out.println("D - Damero");
-        System.out.println("R - Random");
-        System.out.println("F - Alternado por filas");
-        System.out.println("B - Borde exterior");
-        System.out.println("M - Manual");
-        
-        formato = sc.nextLine().toUpperCase().charAt(0);
 
-        while(formato != 'D' && formato != 'R' && formato != 'F' && 
-              formato != 'B' && formato != 'M'){
+            while(sistema.existeMural(nombre)){
+                System.out.println("====================================================");
+                System.out.println("============== ¡Ya existe ese mural! ===============");
+                System.out.println("=============== Ingrese otro nombre: ===============");
+                System.out.println("====================================================");
+                nombre = sc.nextLine().toUpperCase();
+            }
+
             System.out.println("====================================================");
-            System.out.println("=============== Formato inválido ===================");
-            System.out.println("============= Ingrese D, R, F, B o M: ==============");
+            System.out.println("============ Seleccione tipo de formato: ===========");
+            System.out.println("D - Damero");
+            System.out.println("R - Random");
+            System.out.println("F - Alternado por filas");
+            System.out.println("B - Borde exterior");
+            System.out.println("M - Manual");
+            System.out.println("====================================================");
             formato = sc.nextLine().toUpperCase().charAt(0);
+
+            while(formato != 'D' && formato != 'R' && formato != 'F' && 
+                  formato != 'B' && formato != 'M'){
+                System.out.println("====================================================");
+                System.out.println("=============== Formato inválido ===================");
+                System.out.println("============= Ingrese D, R, F, B o M: ==============");
+                System.out.println("====================================================");
+                formato = sc.nextLine().toUpperCase().charAt(0);
+            }
+            
+            
+            System.out.println("========== Seleccione 2 fichas iniciales: ==========");
+        
         }
         
-        System.out.println("========== Seleccione 2 fihcas iniciales: ==========");
+        
     }
 }
