@@ -10,11 +10,13 @@ public class Sistema {
     
     private ArrayList<Diseñador>listaDiseñadores;
     private ArrayList<Ficha> listaFichas;
+    private ArrayList<Mural> listaMurales;
     
     //Constructor
     public Sistema(){
         this.listaDiseñadores = new ArrayList<Diseñador>();
         this.listaFichas = new ArrayList<Ficha>();
+        this.listaMurales = new ArrayList<Mural>();
     }
     
     //Getters & Setters
@@ -41,7 +43,7 @@ public class Sistema {
         }
         return yaExiste;
     }
-
+    
     public ArrayList<Ficha> getListaFichas() {
         return listaFichas;
     }
@@ -65,6 +67,23 @@ public class Sistema {
         }
         return yaExiste;
     }
-    
-    
+
+    public ArrayList<Mural> getListaMurales() {
+        return listaMurales;
+    }
+
+    public void setListaMurales(ArrayList<Mural> listaMurales) {
+        this.listaMurales = listaMurales;
+    }
+  
+    //valida si existe ya un mural con ese nombre
+    public boolean existeMural(String unNombre){
+        boolean yaExiste = false;
+        for (int i = 0; i < this.listaMurales.size(); i++) {
+            if(this.listaMurales.get(i).getNombre().equals(unNombre)){
+                yaExiste = true;
+            } 
+        }
+        return yaExiste;
+    }
 }

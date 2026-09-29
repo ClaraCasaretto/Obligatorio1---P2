@@ -49,7 +49,7 @@ public class InterfazConsola {
                     break;
 
                 case "4":
-                    //Creación de mural.
+                    this.crearMural();
                     break;
 
                 case "5":
@@ -215,4 +215,61 @@ public class InterfazConsola {
     }
     
     
+    /*
+    Se elige el diseñador, nombre del mural (único), y tipo de formato 
+    ("D", "R", "F", "B" o "M"). Cada mural tiene inicialmente 2 fichas diferentes
+    que se seleccionan. Las 2 fichas se distribuyen según indique el tipo de formato:
+    */
+    public void crearMural(){
+        Diseñador diseñador;
+        int opcionDiseñador;
+        String nombre = "";
+        char formato;
+        
+        System.out.println("====================================================");
+        System.out.println("================ CREACIÓN DEL MURAL ================");
+        System.out.println("============== Seleccione un diseñador: ============");
+        for(int i= 0; i< sistema.getListaDiseñador().size(); i++){
+            System.out.println((i+1) + ")" + sistema.getListaDiseñador().get(i).getNombre());
+        }
+        System.out.println("============ Ingrese número del diseñador: ==========");    
+        opcionDiseñador = Integer.parseInt(sc.nextLine());
+        while (opcionDiseñador < 1 || opcionDiseñador > sistema.getListaDiseñador().size()) {
+            System.out.println("====================================================");
+            System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+            opcionDiseñador = Integer.parseInt(sc.nextLine());
+        }
+        diseñador = sistema.getListaDiseñador().get(opcionDiseñador - 1);
+
+        System.out.println("====================================================");
+        System.out.println("============= Ingrese nombre del mural: ============");
+        nombre = sc.nextLine().toUpperCase();
+        
+        while(sistema.existeMural(nombre)){
+            System.out.println("====================================================");
+            System.out.println("============== ¡Ya existe ese mural! ===============");
+            System.out.println("=============== Ingrese otro nombre: ===============");            
+            nombre = sc.nextLine().toUpperCase();
+        }
+        
+        System.out.println("====================================================");
+        System.out.println("============ Seleccione tipo de formato: ===========");
+        System.out.println("D - Damero");
+        System.out.println("R - Random");
+        System.out.println("F - Alternado por filas");
+        System.out.println("B - Borde exterior");
+        System.out.println("M - Manual");
+        
+        formato = sc.nextLine().toUpperCase().charAt(0);
+
+        while(formato != 'D' && formato != 'R' && formato != 'F' && 
+              formato != 'B' && formato != 'M'){
+            System.out.println("====================================================");
+            System.out.println("=============== Formato inválido ===================");
+            System.out.println("============= Ingrese D, R, F, B o M: ==============");
+            formato = sc.nextLine().toUpperCase().charAt(0);
+        }
+        
+        System.out.println("========== Seleccione 2 fihcas iniciales: ==========");
+    }
 }
