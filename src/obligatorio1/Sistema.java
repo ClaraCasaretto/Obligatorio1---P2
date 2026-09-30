@@ -10,11 +10,13 @@ public class Sistema {
     
     private ArrayList<Diseñador>listaDiseñadores;
     private ArrayList<Ficha> listaFichas;
+    private ArrayList<Mural> listaMurales;
     
     //Constructor
     public Sistema(){
         this.listaDiseñadores = new ArrayList<Diseñador>();
         this.listaFichas = new ArrayList<Ficha>();
+        this.listaMurales = new ArrayList<Mural>();
     }
     
     //Getters & Setters
@@ -25,7 +27,23 @@ public class Sistema {
     public void setListaDiseñador(ArrayList<Diseñador> listaDiseñador) {
         this.listaDiseñadores = listaDiseñador;
     }
-
+    
+    //agrega un Diseñador a la lista Diseñador
+    public void actualizarListaDiseñadores(Diseñador unDiseñador){
+        this.listaDiseñadores.add(unDiseñador);
+    }
+    
+    //valida si ya existe un diseñador con ese nombre
+    public boolean existeDiseñador(String unNombre){
+        boolean yaExiste = false;
+        for (int i = 0; i < this.listaDiseñadores.size() && !yaExiste; i++) {
+            if(this.listaDiseñadores.get(i).getNombre().equals(unNombre)){
+                yaExiste = true;
+            }
+        }
+        return yaExiste;
+    }
+    
     public ArrayList<Ficha> getListaFichas() {
         return listaFichas;
     }
@@ -34,7 +52,38 @@ public class Sistema {
         this.listaFichas = listaFichas;
     }
     
+    //agrega una ficha en la lista de fichas
+    public void actualizarListaFichas(Ficha unaFicha){
+        this.listaFichas.add(unaFicha);
+    }
     
-    
-    
+    //valida si ya existe una ficha con ese nombre
+    public boolean existeFicha(String unNombre){
+        boolean yaExiste = false;
+        for (int i = 0; i < this.listaFichas.size() && !yaExiste; i++) {
+            if(this.listaFichas.get(i).getNombre().equals(unNombre)){
+                yaExiste = true;
+            }
+        }
+        return yaExiste;
+    }
+
+    public ArrayList<Mural> getListaMurales() {
+        return listaMurales;
+    }
+
+    public void setListaMurales(ArrayList<Mural> listaMurales) {
+        this.listaMurales = listaMurales;
+    }
+  
+    //valida si existe ya un mural con ese nombre
+    public boolean existeMural(String unNombre){
+        boolean yaExiste = false;
+        for (int i = 0; i < this.listaMurales.size(); i++) {
+            if(this.listaMurales.get(i).getNombre().equals(unNombre)){
+                yaExiste = true;
+            } 
+        }
+        return yaExiste;
+    }
 }
