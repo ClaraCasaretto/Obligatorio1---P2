@@ -18,17 +18,17 @@ public class Mural {
     private Ficha ficha2;
       
     //Constructor
-    public Mural(Diseñador unDiseñador, String unNombre, char unFormato, Ficha [][] unMural, Ficha unaFicha1, Ficha unaFicha2) {
+    public Mural(Diseñador unDiseñador, String unNombre, char unFormato, Ficha unaFicha1, Ficha unaFicha2) {
         this.diseñador = unDiseñador;
         this.nombre = unNombre;
         this.formato = unFormato;
         //Aca hay que revisar, porque tecnicamente todavia no existe el mural, y estamos cargando el original
-        this.muralOriginal = unMural;
+        this.muralOriginal = new Ficha[10][12];
         this.ficha1 = unaFicha1;
         this.ficha2 = unaFicha2;
         this.mural = new Ficha[10][12]; //instancia de mural compuesto con fichas (inicialmente la matriz esta vacia)
         //Llamamos al metodo que lo llena
-        crearMuralInicial (ficha1, ficha2, formato, mural);
+        crearMuralInicial ();
         //metodo para imprimir el mural
     }
     
@@ -95,7 +95,7 @@ public class Mural {
     //ver si necesitamos un toString
     
      //Creador de mural inicial (despues sacamos el void para que retorne la matriz?)
-    public static void crearMuralInicial (Ficha ficha1, Ficha ficha2, char formato, Ficha[][] mural){
+    public void crearMuralInicial (){
         if (formato == 'D'){
             cargarDamero (ficha1, ficha2, mural);
         }
