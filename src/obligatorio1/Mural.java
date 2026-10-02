@@ -3,15 +3,17 @@
 * Clara Casaretto - N°: 250991
 */
 package obligatorio1;
-import obligatorio1.Ficha;
 import java.util.Random;
 
 public class Mural {
     private Diseñador diseñador;
     private String nombre;
     private char formato;
-    private final Ficha[][] muralOriginal; //no se va a poder modificar
+    //revisar en el uml y agregar el muralOriginal
+    //mural original lo puse porque en caso de R o M no se puede volver a generar igual
+    private Ficha[][] muralOriginal; //no se va a poder modificar
     private Ficha[][] mural; //para generar el mural
+    //evaluar si dejamos ficha 1 y 2 o ponemos un arraylist, porque pueden generarse mas fichas editando el mural
     private Ficha ficha1;
     private Ficha ficha2;
       
@@ -20,6 +22,7 @@ public class Mural {
         this.diseñador = unDiseñador;
         this.nombre = unNombre;
         this.formato = unFormato;
+        //Aca hay que revisar, porque tecnicamente todavia no existe el mural, y estamos cargando el original
         this.muralOriginal = unMural;
         this.ficha1 = unaFicha1;
         this.ficha2 = unaFicha2;
@@ -48,7 +51,8 @@ public class Mural {
     public char getFormato() {
         return formato;
     }
-
+       
+    //hay que ver si necesitamos un setter de formato
     public void setFormato(char formato) {
         this.formato = formato;
     }
@@ -110,7 +114,8 @@ public class Mural {
     
     
     //Metodos individuales que cargan la matriz por patrones. Estos son los que deberian devolver el mural.
-    public static void cargarDamero (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
+    //Deberiamos ver si estos metodos son los que guardan la matriz original si no existe
+    private static void cargarDamero (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
         for (int i = 0; i < mural.length; i++){
             for (int j = 0; j < mural[i].length; j++){
                 if ((i+j)%2 == 0){
@@ -122,10 +127,11 @@ public class Mural {
         }
     }
     
-    public static void cargarRandom (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
+    private static void cargarRandom (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
+        Random rand = new Random();
         for (int i =0; i< mural.length; i++){
             for (int j=0; j< mural[i].length; j++){
-                Random rand = new Random();
+                
                 int num = rand.nextInt(2);
                 if (num==0){
                     mural[i][j]=ficha1;
@@ -136,20 +142,21 @@ public class Mural {
         }
     }
     
-    public static void cargarFilas (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
+    //Capaz que se puede hacer con una sola recorrida y no dos
+    private static void cargarFilas (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
         for (int i = 0; i < mural.length; i+=2){
-            for (int j = 0; j < mural[j].length; j++){
+            for (int j = 0; j < mural[i].length; j++){
                 mural[i][j]=ficha1;
             }
         } 
         for (int i = 1; i < mural.length; i+=2){
-            for (int j = 0; j < mural[j].length; j++){
+            for (int j = 0; j < mural[i].length; j++){
                 mural[i][j]=ficha2;
             }
         }
     }
     
-    public static void cargarBordeExt (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
+    private static void cargarBordeExt (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
         for (int j=0; j<mural[0].length; j++){
             mural[0][j]=ficha1;
             mural[(mural.length-1)][j]=ficha1;
@@ -165,7 +172,28 @@ public class Mural {
         }
     }
     
-    public static void cargarManual (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
+    private static void cargarManual (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
         //aca hay que ver como hacemos para pedir las posiciones, si se encarga la interfaz o si se encarga este metodo.
+    }
+    
+    //METODOS PARA MODIFICAR UN MURAL
+    
+    //Para este hay que tener cuidado por si la fila y colunma no son validas
+    public static void modificarPosicion (int fila, int columna, Ficha fichaNueva, Ficha[][] mural){
+        mural[fila-1][columna-1]= fichaNueva;
+    }
+    
+    public static void reemplazarFicha (Ficha fichaVieja, Ficha fichaNueva, Ficha[][] mural){
+        for (int i=0; i<mural.length;i++){
+            for (int j=0; j<mural[i].length;j++){
+                if (mural[i][j]==fichaVieja){
+                    mural[i][j]=fichaNueva;
+                }
+            }
+        }
+    }
+    
+    public static void restaurarMural (Ficha [][] mural){
+        //logica para restaurar el mural desde la matriz original
     }
 }

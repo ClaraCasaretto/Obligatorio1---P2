@@ -179,6 +179,7 @@ public class InterfazConsola {
         }
         
         //validar lo de diseño chico o grande
+        //Y si validamos con un try / catch?
         System.out.println("====================================================");
         System.out.println("===== Ingrese el diseño chico (9 caracteres): =====");
         diseñoChico = sc.nextLine();
@@ -251,6 +252,7 @@ public class InterfazConsola {
             for(int i= 0; i< sistema.getListaDiseñador().size(); i++){
                 System.out.println((i+1) + ")" + sistema.getListaDiseñador().get(i).getNombre());
             }
+            //Aca podemos meter try catch para comprobar que el usuario ingrese un int y no un string por ejemplo
             System.out.println("====================================================");
             System.out.println("============ Ingrese número del diseñador: ==========");    
             opcionDiseñador = Integer.parseInt(sc.nextLine());
