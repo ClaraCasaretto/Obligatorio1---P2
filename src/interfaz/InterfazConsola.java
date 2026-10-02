@@ -179,6 +179,7 @@ public class InterfazConsola {
         }
         
         //validar lo de diseño chico o grande
+        //Y si validamos con un try / catch?
         System.out.println("====================================================");
         System.out.println("===== Ingrese el diseño chico (9 caracteres): =====");
         diseñoChico = sc.nextLine();
@@ -221,10 +222,13 @@ public class InterfazConsola {
     que se seleccionan. Las 2 fichas se distribuyen según indique el tipo de formato:
     */
     public void crearMural(){
-        Diseñador diseñador;
+        //si no inicializamos en null no nos funciona el metodo crearMural 
+        Diseñador diseñador =null;
         int opcionDiseñador;
-        String nombre = "";
+        String nombre;
         char formato;
+        Ficha ficha1;
+        Ficha ficha2;
         
         //validar que haya diseñadores registrados
         if (sistema.getListaDiseñador().isEmpty()) {
@@ -232,12 +236,7 @@ public class InterfazConsola {
             System.out.println("======== No hay diseñadores registrados ============");
             System.out.println("===== Debe registrar un diseñador primero ==========");
             System.out.println("====================================================");
-            
-            
-        //NO SE SI SE TIENE Q HCER ESTA VALIDACION PORQEU POR DEFECTO 
-        //VAN A HABER FICHAS CREADAS...    
-        //PREGUNTARLE A MANU QUE OPINA
-            
+            //validar cantidad de fichas registradas
         }else if(sistema.getListaFichas().size() < 2){
             System.out.println("====================================================");
             System.out.println("========== No hay suficientes fichas ===============");
@@ -251,6 +250,7 @@ public class InterfazConsola {
             for(int i= 0; i< sistema.getListaDiseñador().size(); i++){
                 System.out.println((i+1) + ")" + sistema.getListaDiseñador().get(i).getNombre());
             }
+            //Aca podemos meter try catch para comprobar que el usuario ingrese un int y no un string por ejemplo
             System.out.println("====================================================");
             System.out.println("============ Ingrese número del diseñador: ==========");    
             opcionDiseñador = Integer.parseInt(sc.nextLine());
@@ -296,9 +296,10 @@ public class InterfazConsola {
             
             
             System.out.println("========== Seleccione 2 fichas iniciales: ==========");
-        
+            
         }
-        
-        
+        //CONSULTAR CREAR MURAL POR LAS VARIABLES.
+        //Mural mural = new Mural(diseñador, nombre, formato, ficha1, ficha2);
+        //mural.crearMuralInicial();
     }
 }
