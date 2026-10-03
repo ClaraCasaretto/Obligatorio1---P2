@@ -21,6 +21,12 @@ public class Sistema {
     
     //Cargamos datos iniciales
     public void cargarDatosIniciales() {
+        Diseñador dClara = new Diseñador("Clara", "r1234", "clara@gmail.com");
+        Diseñador dManu = new Diseñador("Manu", "d5678", "manu@gmail.com");
+        
+        actualizarListaDiseñadores(dClara);
+        actualizarListaDiseñadores(dManu);
+        
         Ficha sol = new Ficha(
                "SOL",
                "\\|/-*-/|\\",
