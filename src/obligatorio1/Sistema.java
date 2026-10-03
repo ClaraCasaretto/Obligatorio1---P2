@@ -27,54 +27,14 @@ public class Sistema {
         actualizarListaDiseñadores(dClara);
         actualizarListaDiseñadores(dManu);
         
-        Ficha sol = new Ficha(
-               "SOL",
-               "\\|/-*-/|\\",
-               "..|...\\|/.--*--./|\\...|..",
-               "M"
-       );
-       Ficha cuadrado = new Ficha(
-               "CUADRADO",
-               "+-+|.|+-+",
-               "+---+|...||...||...|+---+",
-               "N"
-       );
-       Ficha corazon = new Ficha(
-               "CORAZON",
-               "*.****.*.",
-               "**.************.***...*..",
-               "R"
-       );
-       Ficha copa = new Ficha(
-               "COPA",
-               "\\./.|./_\\",
-               "\\.../.\\./...|....|.../_\\.",
-               "C"
-       );
-       Ficha arbol = new Ficha(
-               "ARBOL",
-               ".^.^^^.|.",
-               "..^...^^^.^^^^^..|.../.\\.",
-               "V"
-       );
-       Ficha gato = new Ficha(
-               "GATO",
-               "^.^o.o=^=",
-               "/\\_/\\(o.o).>^<../|\\../.\\.",
-               "A"
-       );
-       Ficha diamante = new Ficha(
-               "DIAMANTE",
-               ".*.*.*.*.",
-               "..*...*.*.*...*.*.*...*..",
-               "G"
-       );
-       Ficha vacia = new Ficha(
-               "VACIA",
-               ".........",
-               ".........................",
-               "B"
-       );
+       Ficha sol = new Ficha("SOL", "\\|/-*-/|\\", "..|...\\|/.--*--./|\\...|..", "M");
+       Ficha cuadrado = new Ficha("CUADRADO","+-+|.|+-+","+---+|...||...||...|+---+", "N");
+       Ficha corazon = new Ficha("CORAZON","*.****.*.","**.************.***...*..","R");
+       Ficha copa = new Ficha("COPA","\\./.|./_\\","\\.../.\\./...|....|.../_\\.","C");
+       Ficha arbol = new Ficha("ARBOL",".^.^^^.|.","..^...^^^.^^^^^..|.../.\\.","V");
+       Ficha gato = new Ficha("GATO","^.^o.o=^=","/\\_/\\(o.o).>^<../|\\../.\\.","A");
+       Ficha diamante = new Ficha("DIAMANTE",".*.*.*.*.","..*...*.*.*...*.*.*...*..","G");
+       Ficha vacia = new Ficha("VACIA",".........",".........................","B");
 
        actualizarListaFichas(sol);
        actualizarListaFichas(cuadrado);
