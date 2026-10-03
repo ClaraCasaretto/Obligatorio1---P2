@@ -182,8 +182,9 @@ public class Mural {
     
     public void cargarManual (int fila, int columna, Ficha ficha){
         //manejo de error si la posicion ya fue ingresada
-        if (mural[fila][columna]==null){
-            mural[fila][columna]=ficha;
+        //se pone -1 porque la matriz es a partir de 1??
+        if (mural[fila-1][columna-1]==null){
+            mural[fila-1][columna-1]=ficha;
         }
         //aca hay que ver como hacemos para pedir las posiciones, se encarga la interfaz.
     }
@@ -212,6 +213,14 @@ public class Mural {
             for (int j = 0; j < mural[0].length; j++) {
                 mural [i][j] = muralOriginal [i][j];
             }           
+        }
+    }
+    
+    public void guardarMuralOriginal() {
+        for (int i = 0; i < mural.length; i++) {
+            for (int j = 0; j < mural[0].length; j++) {
+                muralOriginal[i][j] = mural[i][j];
+            }
         }
     }
 }
