@@ -17,6 +17,7 @@ public class InterfazConsola {
 
     public InterfazConsola() {
         sistema = new Sistema();
+        sistema.cargarDatosIniciales();
         sc = new Scanner(System.in);
         iniciarPrograma();
     }
@@ -70,6 +71,7 @@ public class InterfazConsola {
 
                 case "9":
                     //Visualizar todas las fichas
+                    this.visualizarFichas();
                     break;
                     
                 default:
@@ -455,5 +457,27 @@ public class InterfazConsola {
             }
         }
         sistema.getListaMurales().add(mural);
+    }
+    
+    
+    public void visualizarFichas() {
+        System.out.println("====================================================");
+        System.out.println("================== LISTA DE FICHAS =================");
+        System.out.println("====================================================");
+
+        for (int i = 0; i < sistema.getListaFichas().size(); i++) {
+            Ficha ficha = sistema.getListaFichas().get(i);
+
+            System.out.println("Nombre: " + ficha.getNombre());
+            System.out.println("Color: " + ficha.getColor());
+
+            System.out.println("Diseño chico:");
+            System.out.println(ficha.getDiseñoChico());
+
+            System.out.println("Diseño grande:");
+            System.out.println(ficha.getDiseñoGrande());
+
+            System.out.println("----------------------------------------------------");
+        }
     }
 }

@@ -19,6 +19,68 @@ public class Sistema {
         this.listaMurales = new ArrayList<Mural>();
     }
     
+    //Cargamos datos iniciales
+    public void cargarDatosIniciales() {
+        Ficha sol = new Ficha(
+               "SOL",
+               "\\|/-*-/|\\",
+               "..|...\\|/.--*--./|\\...|..",
+               "M"
+       );
+       Ficha cuadrado = new Ficha(
+               "CUADRADO",
+               "+-+|.|+-+",
+               "+---+|...||...||...|+---+",
+               "N"
+       );
+       Ficha corazon = new Ficha(
+               "CORAZON",
+               "*.****.*.",
+               "**.************.***...*..",
+               "R"
+       );
+       Ficha copa = new Ficha(
+               "COPA",
+               "\\./.|./_\\",
+               "\\.../.\\./...|....|.../_\\.",
+               "C"
+       );
+       Ficha arbol = new Ficha(
+               "ARBOL",
+               ".^.^^^.|.",
+               "..^...^^^.^^^^^..|.../.\\.",
+               "V"
+       );
+       Ficha gato = new Ficha(
+               "GATO",
+               "^.^o.o=^=",
+               "/\\_/\\(o.o).>^<../|\\../.\\.",
+               "A"
+       );
+       Ficha diamante = new Ficha(
+               "DIAMANTE",
+               ".*.*.*.*.",
+               "..*...*.*.*...*.*.*...*..",
+               "G"
+       );
+       Ficha vacia = new Ficha(
+               "VACIA",
+               ".........",
+               ".........................",
+               "B"
+       );
+
+       actualizarListaFichas(sol);
+       actualizarListaFichas(cuadrado);
+       actualizarListaFichas(corazon);
+       actualizarListaFichas(copa);
+       actualizarListaFichas(arbol);
+       actualizarListaFichas(gato);
+       actualizarListaFichas(diamante);
+       actualizarListaFichas(vacia);
+    }
+    
+    
     //Getters & Setters
     public ArrayList<Diseñador> getListaDiseñador() {
         return listaDiseñadores;
