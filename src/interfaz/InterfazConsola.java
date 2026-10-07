@@ -253,15 +253,25 @@ public class InterfazConsola {
             for(int i= 0; i< sistema.getListaDiseñador().size(); i++){
                 System.out.println((i+1) + ")" + sistema.getListaDiseñador().get(i).getNombre());
             }
-            //Aca podemos meter try catch para comprobar que el usuario ingrese un int y no un string por ejemplo
             System.out.println("====================================================");
-            System.out.println("============ Ingrese número del diseñador: ==========");    
-            opcionDiseñador = Integer.parseInt(sc.nextLine());
-            while (opcionDiseñador < 1 || opcionDiseñador > sistema.getListaDiseñador().size()) {
-                System.out.println("====================================================");
-                System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
-                System.out.println("====================================================");
-                opcionDiseñador = Integer.parseInt(sc.nextLine());
+            System.out.println("============ Ingrese número del diseñador: ==========");
+            boolean diseñadorValido = false;
+            while (!diseñadorValido) {
+                try {
+                    opcionDiseñador = Integer.parseInt(sc.nextLine());
+                    if (opcionDiseñador >= 1 
+                            && opcionDiseñador <= sistema.getListaDiseñador().size()) {
+                        diseñadorValido = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                        System.out.println("====================================================");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido ===========");
+                    System.out.println("====================================================");
+                }
             }
             diseñador = sistema.getListaDiseñador().get(opcionDiseñador - 1);
 
@@ -286,17 +296,29 @@ public class InterfazConsola {
             System.out.println("B - Borde exterior");
             System.out.println("M - Manual");
             System.out.println("====================================================");
-            formato = sc.nextLine().toUpperCase().charAt(0);
-
-            while(formato != 'D' && formato != 'R' && formato != 'F' && 
-                  formato != 'B' && formato != 'M'){
-                System.out.println("====================================================");
-                System.out.println("=============== Formato inválido ===================");
-                System.out.println("============= Ingrese D, R, F, B o M: ==============");
-                System.out.println("====================================================");
-                formato = sc.nextLine().toUpperCase().charAt(0);
-            }
             
+            boolean formatoValido = false;
+            while (!formatoValido) {
+                String entradaFormato = sc.nextLine().toUpperCase();
+                if (entradaFormato.length() == 1) {
+                    formato = entradaFormato.charAt(0);
+                    if (formato == 'D' || formato == 'R' || formato == 'F' || 
+                        formato == 'B' || formato == 'M') {
+                        formatoValido = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("=============== Formato inválido ===================");
+                        System.out.println("============= Ingrese D, R, F, B o M: =============");
+                        System.out.println("====================================================");
+                    }
+                } else {
+                    System.out.println("====================================================");
+                    System.out.println("=============== Formato inválido ===================");
+                    System.out.println("============= Ingrese D, R, F, B o M: =============");
+                    System.out.println("====================================================");
+                }
+            }
+
             System.out.println("========== Seleccione 2 fichas iniciales: ==========");
             for(int i= 0; i< sistema.getListaFichas().size(); i++){
                 System.out.println((i+1) + ")" + sistema.getListaFichas().get(i).getNombre());
@@ -354,109 +376,125 @@ public class InterfazConsola {
                 }
             }
             ficha2 = sistema.getListaFichas().get(opcionFicha2 - 1); 
-        }
-
-        Mural mural = new Mural(diseñador, nombre, formato, ficha1, ficha2);
+            
+            //me genera duda donde va esto:
+            Mural mural = new Mural(diseñador, nombre, formato, ficha1, ficha2);
         
-        //cargar mural manual
-        if(formato == 'M'){
-            char continuar = 'S';
-            while (continuar == 'S') {
-                //Insertar fila
-                System.out.println("====================================================");
-                System.out.println("================= Ingrese la fila: =================");
-                
-                boolean filaValida = false;
-                while (!filaValida) {
-                    try {
-                        fila = Integer.parseInt(sc.nextLine());
-                        if (fila >= 1 && fila <= mural.getMural().length) {
-                            filaValida = true;
-                        } else {
-                            System.out.println("====================================================");
-                            System.out.println("===== Fila fuera de rango. Inserte otro número: ====");
-                            System.out.println("====================================================");
-                        }
-
-                    } catch (NumberFormatException e) {
-                        System.out.println("====================================================");
-                        System.out.println("========= Debe ingresar un número válido. ==========");
-                        System.out.println("====================================================");
-                    }
-                }
-                
-                //Insertar columna
-                System.out.println("====================================================");
-                System.out.println("=============== Ingrese la columna: ================");
-                
-                boolean columnaInvalida = false;
-                while(!columnaInvalida){
-                    try {
-                        columna = Integer.parseInt(sc.nextLine());
-                        if(columna >= 1 && columna <= mural.getMural()[0].length){
-                            columnaInvalida = true;
-                        } else {
-                            System.out.println("====================================================");
-                            System.out.println("===== Columna fuera de rango. Inserte otro número: ====");
-                            System.out.println("====================================================");
-                        }
-                    } catch(NumberFormatException e){
-                        System.out.println("====================================================");
-                        System.out.println("========= Debe ingresar un número válido. ==========");
-                        System.out.println("====================================================");
-                    }
-                }
-                
-                //Mostrar fichas
-                System.out.println("====================================================");
-                System.out.println("=============== Seleccione una ficha: =============");
-                System.out.println("====================================================");
-                for (int i = 0; i < sistema.getListaFichas().size(); i++) {
-                    System.out.println((i + 1) + ") "
-                            + sistema.getListaFichas().get(i).getNombre());
-                }
-                
-                //Elegir ficha
-                boolean fichaValida = false;
-                while (!fichaValida) {
-                    try {
-                        opcionFicha = Integer.parseInt(sc.nextLine());
-                        if (opcionFicha >= 1
-                                && opcionFicha <= sistema.getListaFichas().size()) {
-                            fichaValida = true;
-                        } else {
-                            System.out.println("====================================================");
-                            System.out.println("======= Opción inválida. Ingrese nuevamente. =======");
-                            System.out.println("====================================================");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("====================================================");
-                        System.out.println("========= Debe ingresar un número válido. ==========");
-                        System.out.println("====================================================");
-                    }
-                }
-                fichaElegida = sistema.getListaFichas().get(opcionFicha - 1);
-                
-                //Cargar ficha con matriz manual 
-                mural.cargarManual(fila, columna, fichaElegida);
-                
-                //Continuar
-                System.out.println("====================================================");
-                System.out.println("========= ¿Desea agregar otra ficha? (S/N) =========");
-                System.out.println("====================================================");
-
-                continuar = sc.nextLine().toUpperCase().charAt(0);
-
-                while (continuar != 'S' && continuar != 'N') {
+            //cargar mural manual
+            if(formato == 'M'){
+                char continuar = 'S';
+                while (continuar == 'S') {
+                    //Insertar fila
                     System.out.println("====================================================");
-                    System.out.println("========= Debe ingresar S o N. Intente: ===========");
+                    System.out.println("================= Ingrese la fila: =================");
+
+                    boolean filaValida = false;
+                    while (!filaValida) {
+                        try {
+                            fila = Integer.parseInt(sc.nextLine());
+                            if (fila >= 1 && fila <= mural.getMural().length) {
+                                filaValida = true;
+                            } else {
+                                System.out.println("====================================================");
+                                System.out.println("===== Fila fuera de rango. Inserte otro número: ====");
+                                System.out.println("====================================================");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            System.out.println("====================================================");
+                            System.out.println("========= Debe ingresar un número válido. ==========");
+                            System.out.println("====================================================");
+                        }
+                    }
+
+                    //Insertar columna
+                    System.out.println("====================================================");
+                    System.out.println("=============== Ingrese la columna: ================");
+
+                    boolean columnaValida = false;
+                    while(!columnaValida){
+                        try {
+                            columna = Integer.parseInt(sc.nextLine());
+                            if(columna >= 1 && columna <= mural.getMural()[0].length){
+                                columnaValida = true;
+                            } else {
+                                System.out.println("====================================================");
+                                System.out.println("===== Columna fuera de rango. Inserte otro número: ====");
+                                System.out.println("====================================================");
+                            }
+                        } catch(NumberFormatException e){
+                            System.out.println("====================================================");
+                            System.out.println("========= Debe ingresar un número válido ===========");
+                            System.out.println("====================================================");
+                        }
+                    }
+
+                    //Mostrar fichas
+                    System.out.println("====================================================");
+                    System.out.println("=============== Seleccione una ficha: =============");
+                    System.out.println("====================================================");
+                    for (int i = 0; i < sistema.getListaFichas().size(); i++) {
+                        System.out.println((i + 1) + ") "
+                                + sistema.getListaFichas().get(i).getNombre());
+                    }
+
+                    //Elegir ficha
+                    boolean fichaValida = false;
+                    while (!fichaValida) {
+                        try {
+                            opcionFicha = Integer.parseInt(sc.nextLine());
+                            if (opcionFicha >= 1
+                                    && opcionFicha <= sistema.getListaFichas().size()) {
+                                fichaValida = true;
+                            } else {
+                                System.out.println("====================================================");
+                                System.out.println("======= Opción inválida. Ingrese nuevamente. =======");
+                                System.out.println("====================================================");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("====================================================");
+                            System.out.println("========= Debe ingresar un número válido ===========");
+                            System.out.println("====================================================");
+                        }
+                    }
+                    fichaElegida = sistema.getListaFichas().get(opcionFicha - 1);
+
+                    //Cargar ficha con matriz manual 
+                    mural.cargarManual(fila, columna, fichaElegida);
+
+                    //Continuar
+                    System.out.println("====================================================");
+                    System.out.println("========= ¿Desea agregar otra ficha? (S/N) =========");
                     System.out.println("====================================================");
 
-                    continuar = sc.nextLine().toUpperCase().charAt(0);
+                    boolean continuarValido = false;
+                    while (!continuarValido) {
+                        try {
+                            String entrada = sc.nextLine().toUpperCase();
+                            if (entrada.length() == 1) {
+                                continuar = entrada.charAt(0);
+                                if (continuar == 'S' || continuar == 'N') {
+                                    continuarValido = true;
+                                } else {
+                                    System.out.println("====================================================");
+                                    System.out.println("========= Debe ingresar S o N. Intente: ===========");
+                                    System.out.println("====================================================");
+                                }
+                            } else {
+                                System.out.println("====================================================");
+                                System.out.println("========= Debe ingresar S o N. Intente: ===========");
+                                System.out.println("====================================================");
+                            }
+                        } catch (Exception e) {
+                            System.out.println("====================================================");
+                            System.out.println("========= Debe ingresar S o N. Intente: ===========");
+                            System.out.println("====================================================");
+                        }
+                    }
                 }
             }
+            sistema.getListaMurales().add(mural);
         }
-        sistema.getListaMurales().add(mural);
     }
     
     

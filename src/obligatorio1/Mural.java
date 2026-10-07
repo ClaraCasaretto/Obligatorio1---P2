@@ -216,6 +216,7 @@ public class Mural {
         }
     }
     
+    //Guarda el mural original cuando se crea por primera vez
     public void guardarMuralOriginal() {
         for (int i = 0; i < mural.length; i++) {
             for (int j = 0; j < mural[0].length; j++) {
