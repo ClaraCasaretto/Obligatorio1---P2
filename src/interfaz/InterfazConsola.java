@@ -494,9 +494,87 @@ public class InterfazConsola {
                 }
             }
             sistema.getListaMurales().add(mural);
+            System.out.println("====================================================");
+            System.out.println("============= MURAL CREADO CORRECTAMENTE ===========");
+            System.out.println("====================================================");
+            visualizarMural(mural);
         }
     }
     
+    private String obtenerColor(String color) {
+        switch (color) {
+            case "R":
+                return "\033[31m"; // rojo
+            case "A":
+                return "\033[34m"; // azul
+            case "B":
+                return "\033[37m"; // blanco
+            case "N":
+                return "\033[30m"; // negro
+            case "M":
+                return "\033[33m"; // amarillo
+            case "V":
+                return "\033[32m"; // verde
+            case "G":
+                return "\033[35m"; // magenta
+            case "C":
+                return "\033[36m"; // celeste
+            default:
+                return "";
+        }
+    }
+    
+    
+    public void visualizarMural(Mural mural) {
+        System.out.println("====================================================");
+        System.out.println("MURAL: " + mural.getNombre());
+        System.out.println("DISEÑADOR: " + mural.getDiseñador().getNombre());
+        System.out.println("====================================================");
+
+        System.out.println("================ DISEÑO CHICO =====================");
+        mostrarMural(mural, 3);
+
+        System.out.println();
+        System.out.println("================ DISEÑO GRANDE ====================");
+        mostrarMural(mural, 5);
+
+        System.out.println();
+        System.out.println("Presione ENTER para continuar...");
+        sc.nextLine();
+    }
+    
+    private void mostrarMural(Mural mural, int tamañoDiseño) {
+        Ficha[][] matriz = mural.getMural();
+        for (int i = 0; i < matriz.length; i++) {
+            // Recorremos las filas del diseño de cada ficha
+            for (int filaDiseño = 0; filaDiseño < tamañoDiseño; filaDiseño++) {
+                // Recorremos las fichas de una fila del mural
+                for (int j = 0; j < matriz[i].length; j++) {
+                    Ficha ficha = matriz[i][j];
+                    String diseño;
+                    if (tamañoDiseño == 3) {
+                        diseño = ficha.getDiseñoChico();
+                    } else {
+                        diseño = ficha.getDiseñoGrande();
+                    }
+                    String codigoColor = obtenerColor(ficha.getColor());
+                    // Recorremos las columnas del diseño de la ficha
+                    for (int columnaDiseño = 0; columnaDiseño < tamañoDiseño; columnaDiseño++) {
+                        int posicion = filaDiseño * tamañoDiseño + columnaDiseño;
+                        char caracter = diseño.charAt(posicion);
+                        if (caracter == '.') {
+                            System.out.print("  ");
+                        } else {
+                            System.out.print(codigoColor + caracter + "\033[0m ");
+                        }
+                    }
+                    // Separación entre fichas
+                    System.out.print(" ");
+                }
+                System.out.println();
+            }
+        }
+    }
     
     public void visualizarFichas() {
         System.out.println("====================================================");
@@ -520,34 +598,7 @@ public class InterfazConsola {
     }
     
     private void mostrarDiseño(String diseño, int columnas, String color) {
-        String codigoColor = "";
-        
-        switch (color) {
-            case "R":
-                codigoColor = "\033[31m";
-                break;
-            case "A":
-                codigoColor = "\033[34m";
-                break;
-            case "B":
-                codigoColor = "\033[37m";
-                break;
-            case "N":
-                codigoColor = "\033[30m";
-                break;
-            case "M":
-                codigoColor = "\033[33m";
-                break;
-            case "V":
-                codigoColor = "\033[32m";
-                break;
-            case "G":
-                codigoColor = "\033[35m";
-                break;
-            case "C":
-                codigoColor = "\033[36m";
-                break;
-        }
+        String codigoColor = obtenerColor(color);
         for (int i = 0; i < diseño.length(); i++) {
             if (diseño.charAt(i) == '.') {
                 System.out.print("  ");
