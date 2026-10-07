@@ -510,12 +510,55 @@ public class InterfazConsola {
             System.out.println("Color: " + ficha.getColor());
 
             System.out.println("Diseño chico:");
-            System.out.println(ficha.getDiseñoChico());
+            mostrarDiseño(ficha.getDiseñoChico(), 3, ficha.getColor());
 
             System.out.println("Diseño grande:");
-            System.out.println(ficha.getDiseñoGrande());
+            mostrarDiseño(ficha.getDiseñoGrande(), 5, ficha.getColor());
 
             System.out.println("----------------------------------------------------");
         }
     }
+    
+    private void mostrarDiseño(String diseño, int columnas, String color) {
+        String codigoColor = "";
+        
+        switch (color) {
+            case "R":
+                codigoColor = "\033[31m";
+                break;
+            case "A":
+                codigoColor = "\033[34m";
+                break;
+            case "B":
+                codigoColor = "\033[37m";
+                break;
+            case "N":
+                codigoColor = "\033[30m";
+                break;
+            case "M":
+                codigoColor = "\033[33m";
+                break;
+            case "V":
+                codigoColor = "\033[32m";
+                break;
+            case "G":
+                codigoColor = "\033[35m";
+                break;
+            case "C":
+                codigoColor = "\033[36m";
+                break;
+        }
+        for (int i = 0; i < diseño.length(); i++) {
+            if (diseño.charAt(i) == '.') {
+                System.out.print("  ");
+            } else {
+                System.out.print(codigoColor + diseño.charAt(i) + "\033[0m ");
+            }
+            if ((i + 1) % columnas == 0) {
+                System.out.println();
+            }
+        }
+    }
+    
+    
 }
