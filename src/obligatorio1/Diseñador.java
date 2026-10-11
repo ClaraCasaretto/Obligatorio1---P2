@@ -58,13 +58,14 @@ public class Diseñador {
         this.listaDeMurales = listaDeMurales;
     }
 
+    /*
     public ArrayList<Ficha> getListaDeFichas() {
         return listaDeFichas;
     }
 
     public void setListaDeFichas(ArrayList<Ficha> listaDeFichas) {
         this.listaDeFichas = listaDeFichas;
-    }
+    }*/
     
     //agaregamos toString? si lo ponemos, ver como ponerlo
     /*
@@ -75,4 +76,40 @@ public class Diseñador {
              + "\nEmail: " + email;
     }
     */
+    
+    public int cantidadDeMurales() {
+        return listaDeMurales.size();
+    }
+    
+    public int cantidadDeFichasDiferentes() {
+        ArrayList<Ficha> fichasDiferentes = new ArrayList<Ficha>();
+        for (int i = 0; i < listaDeMurales.size(); i++) {
+            Ficha[][] matriz = listaDeMurales.get(i).getMural();
+            for (int fila = 0; fila < matriz.length; fila++) {
+                for (int columna = 0; columna < matriz[fila].length; columna++) {
+                    Ficha ficha = matriz[fila][columna];
+                    if (ficha != null && !fichasDiferentes.contains(ficha)) {
+                        fichasDiferentes.add(ficha);
+                    }
+                }
+            }
+        }
+        return fichasDiferentes.size();
+    }
+    
+    public int cantidadDeColoresDiferentes() {
+        ArrayList<String> coloresDiferentes = new ArrayList<String>();
+        for (int i = 0; i < listaDeMurales.size(); i++) {
+            Ficha[][] matriz = listaDeMurales.get(i).getMural();
+            for (int fila = 0; fila < matriz.length; fila++) {
+                for (int columna = 0; columna < matriz[fila].length; columna++) {
+                    Ficha ficha = matriz[fila][columna];
+                    if (ficha != null && !coloresDiferentes.contains(ficha.getColor())) {
+                        coloresDiferentes.add(ficha.getColor());
+                    }
+                }
+            }
+        }
+        return coloresDiferentes.size();
+    }
 }

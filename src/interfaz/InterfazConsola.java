@@ -63,6 +63,7 @@ public class InterfazConsola {
 
                 case "7":
                     //Listado de diseñadores
+                    this.listarDiseñadores();
                     break;
 
                 case "8":
@@ -234,7 +235,7 @@ public class InterfazConsola {
         
         
         //validar que haya diseñadores registrados
-        if (sistema.getListaDiseñador().isEmpty()) {
+        if (sistema.getListaDiseñadores().isEmpty()) {
             System.out.println("====================================================");
             System.out.println("======== No hay diseñadores registrados ============");
             System.out.println("===== Debe registrar un diseñador primero ==========");
@@ -250,8 +251,8 @@ public class InterfazConsola {
             System.out.println("====================================================");
             System.out.println("================ CREACIÓN DEL MURAL ================");
             System.out.println("============== Seleccione un diseñador: ============");
-            for(int i= 0; i< sistema.getListaDiseñador().size(); i++){
-                System.out.println((i+1) + ")" + sistema.getListaDiseñador().get(i).getNombre());
+            for(int i= 0; i< sistema.getListaDiseñadores().size(); i++){
+                System.out.println((i+1) + ")" + sistema.getListaDiseñadores().get(i).getNombre());
             }
             System.out.println("====================================================");
             System.out.println("============ Ingrese número del diseñador: ==========");
@@ -260,7 +261,7 @@ public class InterfazConsola {
                 try {
                     opcionDiseñador = Integer.parseInt(sc.nextLine());
                     if (opcionDiseñador >= 1 
-                            && opcionDiseñador <= sistema.getListaDiseñador().size()) {
+                            && opcionDiseñador <= sistema.getListaDiseñadores().size()) {
                         diseñadorValido = true;
                     } else {
                         System.out.println("====================================================");
@@ -273,7 +274,7 @@ public class InterfazConsola {
                     System.out.println("====================================================");
                 }
             }
-            diseñador = sistema.getListaDiseñador().get(opcionDiseñador - 1);
+            diseñador = sistema.getListaDiseñadores().get(opcionDiseñador - 1);
 
             System.out.println("====================================================");
             System.out.println("============= Ingrese nombre del mural: ============");
@@ -493,7 +494,10 @@ public class InterfazConsola {
                     }
                 }
             }
+            //agregamos el mural a la lista general de murales
             sistema.getListaMurales().add(mural);
+            //agregamos el mural a la lista del diseñador
+            diseñador.getListaDeMurales().add(mural);
             System.out.println("====================================================");
             System.out.println("============= MURAL CREADO CORRECTAMENTE ===========");
             System.out.println("====================================================");
@@ -543,6 +547,7 @@ public class InterfazConsola {
         sc.nextLine();
     }
     
+    //manu, dejarias esto aca? o lo mandamos a otra clase?
     private void mostrarMural(Mural mural, int tamañoDiseño) {
         Ficha[][] matriz = mural.getMural();
         for (int i = 0; i < matriz.length; i++) {
@@ -597,6 +602,7 @@ public class InterfazConsola {
         }
     }
     
+    //manu, dejarias esto aca? o lo mandamos a otra clase?
     private void mostrarDiseño(String diseño, int columnas, String color) {
         String codigoColor = obtenerColor(color);
         for (int i = 0; i < diseño.length(); i++) {
@@ -612,4 +618,10 @@ public class InterfazConsola {
     }
     
     
+    //Listado diseñadores
+    public void listarDiseñadores(){
+        for (int i = 0; i < sistema.getListaDiseñadores().size(); i++) {
+  
+        }
+    }
 }

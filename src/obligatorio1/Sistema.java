@@ -48,11 +48,11 @@ public class Sistema {
     
     
     //Getters & Setters
-    public ArrayList<Diseñador> getListaDiseñador() {
+    public ArrayList<Diseñador> getListaDiseñadores() {
         return listaDiseñadores;
     }
 
-    public void setListaDiseñador(ArrayList<Diseñador> listaDiseñador) {
+    public void setListaDiseñadores(ArrayList<Diseñador> listaDiseñador) {
         this.listaDiseñadores = listaDiseñador;
     }
     
