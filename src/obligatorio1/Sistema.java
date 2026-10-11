@@ -24,8 +24,8 @@ public class Sistema {
         Diseñador dClara = new Diseñador("Clara", "r1234", "clara@gmail.com");
         Diseñador dManu = new Diseñador("Manu", "d5678", "manu@gmail.com");
         
-        actualizarListaDiseñadores(dClara);
-        actualizarListaDiseñadores(dManu);
+        agregarDiseñador(dClara);
+        agregarDiseñador(dManu);
         
        Ficha sol = new Ficha("SOL", "\\|/-*-/|\\", "..|...\\|/.--*--./|\\...|..", "M");
        Ficha cuadrado = new Ficha("CUADRADO","+-+|.|+-+","+---+|...||...||...|+---+", "N");
@@ -36,14 +36,14 @@ public class Sistema {
        Ficha diamante = new Ficha("DIAMANTE",".*.*.*.*.","..*...*.*.*...*.*.*...*..","G");
        Ficha vacia = new Ficha("VACIA",".........",".........................","B");
 
-       actualizarListaFichas(sol);
-       actualizarListaFichas(cuadrado);
-       actualizarListaFichas(corazon);
-       actualizarListaFichas(copa);
-       actualizarListaFichas(arbol);
-       actualizarListaFichas(gato);
-       actualizarListaFichas(diamante);
-       actualizarListaFichas(vacia);
+       agregarFicha(sol);
+       agregarFicha(cuadrado);
+       agregarFicha(corazon);
+       agregarFicha(copa);
+       agregarFicha(arbol);
+       agregarFicha(gato);
+       agregarFicha(diamante);
+       agregarFicha(vacia);
     }
     
     
@@ -57,7 +57,7 @@ public class Sistema {
     }
     
     //agrega un Diseñador a la lista Diseñador
-    public void actualizarListaDiseñadores(Diseñador unDiseñador){
+    public void agregarDiseñador(Diseñador unDiseñador){
         this.listaDiseñadores.add(unDiseñador);
     }
     
@@ -81,7 +81,7 @@ public class Sistema {
     }
     
     //agrega una ficha en la lista de fichas
-    public void actualizarListaFichas(Ficha unaFicha){
+    public void agregarFicha (Ficha unaFicha){
         this.listaFichas.add(unaFicha);
     }
     
@@ -113,5 +113,9 @@ public class Sistema {
             } 
         }
         return yaExiste;
+    }
+    
+    public void agregarMural (Mural mural){
+        this.listaMurales.add(mural);
     }
 }

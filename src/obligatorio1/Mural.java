@@ -28,7 +28,8 @@ public class Mural {
         this.ficha2 = unaFicha2;
         this.mural = new Ficha[10][12]; //instancia de mural compuesto con fichas (inicialmente la matriz esta vacia)
         //Llamamos al metodo que lo llena
-        crearMuralInicial ();
+        //EN REALIDAD SI LO LLAMAMOS ACA TAMBIEN LO LLAMA INTERFAZ Y SE CREA DOS VECES.
+        //crearMuralInicial ();
         //metodo para imprimir el mural
     }
     
@@ -107,17 +108,11 @@ public class Mural {
         }
         if (formato == 'B'){
             cargarBordeExt (ficha1, ficha2, mural);
-        }
-        //decidir donde se pone el metodo cargarManual
-        /*if (formato == 'M'){
-            cargarManual (ficha1, ficha2, mural);
-        }*/        
-        //Cargar mural inicial?    
+        } 
     }
     
     
     //Metodos individuales que cargan la matriz por patrones. Estos son los que deberian devolver el mural.
-    //Deberiamos ver si estos metodos son los que guardan la matriz original si no existe
     private static void cargarDamero (Ficha ficha1, Ficha ficha2, Ficha[][] mural){
         for (int i = 0; i < mural.length; i++){
             for (int j = 0; j < mural[i].length; j++){
@@ -180,13 +175,19 @@ public class Mural {
         }
     }
     
+    public void inicializarManual (Ficha ficha){
+        for (int i = 0; i < mural.length; i++) {
+            for (int j = 0; j < mural[i].length; j++) {
+                mural[i][j] = ficha;
+            }
+        }
+    }
+    
     public void cargarManual (int fila, int columna, Ficha ficha){
         //manejo de error si la posicion ya fue ingresada
-        //se pone -1 porque la matriz es a partir de 1??
-        if (mural[fila-1][columna-1]==null){
-            mural[fila-1][columna-1]=ficha;
-        }
-        //aca hay que ver como hacemos para pedir las posiciones, se encarga la interfaz.
+        //se pone -1 porque la matriz es a partir de 1
+        //Elimino la comprobacion de null porque ya se inicializo con fichas vacias
+        mural[fila-1][columna-1]=ficha;
     }
     
     //METODOS PARA MODIFICAR UN MURAL
@@ -208,7 +209,6 @@ public class Mural {
     
     public void restaurarMural (Ficha [][] mural){
         //logica para restaurar el mural desde la matriz original
-        //this.mural = this.muralOriginal.clone(); 
         for (int i = 0; i < mural.length; i++) {
             for (int j = 0; j < mural[0].length; j++) {
                 mural [i][j] = muralOriginal [i][j];
