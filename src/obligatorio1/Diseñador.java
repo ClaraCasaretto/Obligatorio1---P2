@@ -57,6 +57,10 @@ public class Diseñador {
     public void setListaDeMurales(ArrayList<Mural> listaDeMurales) {
         this.listaDeMurales = listaDeMurales;
     }
+    
+    public void agregarMural (Mural mural){
+        this.listaDeMurales.add(mural);
+    }
 
     /*
     public ArrayList<Ficha> getListaDeFichas() {

@@ -503,6 +503,7 @@ public class InterfazConsola {
             }
             sistema.agregarMural(mural);
             mural.guardarMuralOriginal();
+            diseñador.agregarMural(mural);
             System.out.println("====================================================");
             System.out.println("============= MURAL CREADO CORRECTAMENTE ===========");
             System.out.println("====================================================");
