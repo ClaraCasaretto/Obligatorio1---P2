@@ -140,7 +140,7 @@ public class InterfazConsola {
         System.out.println("====================================================");  
         
         Diseñador diseñador = new Diseñador(nombre, direccion, mail);
-        sistema.actualizarListaDiseñadores(diseñador);
+        sistema.agregarDiseñador(diseñador);
     }
     
     private void registrarFicha(){
@@ -215,7 +215,7 @@ public class InterfazConsola {
         System.out.println("====================================================");
         
         Ficha ficha = new Ficha(nombre, diseñoChico, diseñoGrande, color);
-        sistema.actualizarListaFichas(ficha);
+        sistema.agregarFicha(ficha);
     }
     
     public void crearMural(){
@@ -383,6 +383,10 @@ public class InterfazConsola {
         
             //cargar mural manual
             if(formato == 'M'){
+                //Carga inicial con ficha VACIA
+                //Revisar como consigue la ficha vacia porque ahora funciona por como esta precargado
+                Ficha vacia = sistema.getListaFichas().get(sistema.getListaFichas().size()-1);
+                mural.inicializarManual(vacia);
                 char continuar = 'S';
                 while (continuar == 'S') {
                     //Insertar fila
@@ -440,13 +444,19 @@ public class InterfazConsola {
                     }
 
                     //Elegir ficha
+                    //Aca cambie porque no puede elegirse cualquier ficha, tiene que ser una de las 2 iniciales
                     boolean fichaValida = false;
                     while (!fichaValida) {
                         try {
                             opcionFicha = Integer.parseInt(sc.nextLine());
-                            if (opcionFicha >= 1
-                                    && opcionFicha <= sistema.getListaFichas().size()) {
+                            if (opcionFicha == 1 || opcionFicha == 2) {
                                 fichaValida = true;
+                                //Ahora la carga manual se da aca mismo
+                                if (opcionFicha ==1){
+                                    mural.cargarManual(fila, columna, ficha1);
+                                }else {
+                                    mural.cargarManual(fila, columna, ficha2);
+                                }
                             } else {
                                 System.out.println("====================================================");
                                 System.out.println("======= Opción inválida. Ingrese nuevamente. =======");
@@ -458,11 +468,6 @@ public class InterfazConsola {
                             System.out.println("====================================================");
                         }
                     }
-                    fichaElegida = sistema.getListaFichas().get(opcionFicha - 1);
-
-                    //Cargar ficha con matriz manual 
-                    mural.cargarManual(fila, columna, fichaElegida);
-
                     //Continuar
                     System.out.println("====================================================");
                     System.out.println("========= ¿Desea agregar otra ficha? (S/N) =========");
@@ -493,11 +498,11 @@ public class InterfazConsola {
                         }
                     }
                 }
+            } else {
+                mural.crearMuralInicial();
             }
-            //agregamos el mural a la lista general de murales
-            sistema.getListaMurales().add(mural);
-            //agregamos el mural a la lista del diseñador
-            diseñador.getListaDeMurales().add(mural);
+            sistema.agregarMural(mural);
+            mural.guardarMuralOriginal();
             System.out.println("====================================================");
             System.out.println("============= MURAL CREADO CORRECTAMENTE ===========");
             System.out.println("====================================================");
