@@ -60,6 +60,7 @@ public class InterfazConsola {
 
                 case "6":
                     //Visualizar mural
+                    this.visualizarMural();
                     break;
 
                 case "7":
@@ -220,7 +221,6 @@ public class InterfazConsola {
     }
     
     public void crearMural(){
-        //si no inicializamos en null no nos funciona el metodo crearMural 
         Diseñador diseñador = null;
         int opcionDiseñador = 0;
         String nombre = "";
@@ -508,7 +508,7 @@ public class InterfazConsola {
             System.out.println("====================================================");
             System.out.println("============= MURAL CREADO CORRECTAMENTE ===========");
             System.out.println("====================================================");
-            visualizarMural(mural);
+            visualizarMuralCreado(mural);
         }
     }
     
@@ -536,7 +536,7 @@ public class InterfazConsola {
     }
     
     
-    public void visualizarMural(Mural mural) {
+    public void visualizarMuralCreado(Mural mural) {
         System.out.println("====================================================");
         System.out.println("MURAL: " + mural.getNombre());
         System.out.println("DISEÑADOR: " + mural.getDiseñador().getNombre());
@@ -592,19 +592,14 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("================== LISTA DE FICHAS =================");
         System.out.println("====================================================");
-
         for (int i = 0; i < sistema.getListaFichas().size(); i++) {
             Ficha ficha = sistema.getListaFichas().get(i);
-
             System.out.println("Nombre: " + ficha.getNombre());
             System.out.println("Color: " + ficha.getColor());
-
             System.out.println("Diseño chico:");
             mostrarDiseño(ficha.getDiseñoChico(), 3, ficha.getColor());
-
             System.out.println("Diseño grande:");
             mostrarDiseño(ficha.getDiseñoGrande(), 5, ficha.getColor());
-
             System.out.println("====================================================");
         }
     }
@@ -624,6 +619,47 @@ public class InterfazConsola {
         }
     }
     
+    public void visualizarMural(){
+        Diseñador diseñador = null;
+        int opcionDiseñador = 0;
+        
+        
+        if (sistema.getListaDiseñadores().isEmpty()) {
+            System.out.println("====================================================");
+            System.out.println("======== No hay diseñadores registrados ============");
+            System.out.println("===== Debe registrar un diseñador primero ==========");
+            System.out.println("====================================================");
+        }else{
+            System.out.println("====================================================");
+            System.out.println("============ VISUALIZACIÓN DE UN MURAL =============");
+            System.out.println("============== Seleccione un diseñador: ============");
+            for(int i= 0; i< sistema.getListaDiseñadores().size(); i++){
+                System.out.println((i+1) + ")" + sistema.getListaDiseñadores().get(i).getNombre());
+            }
+            System.out.println("====================================================");
+            System.out.println("============ Ingrese número del diseñador: ==========");
+            boolean diseñadorValido = false;
+            while (!diseñadorValido) {
+                try {
+                    opcionDiseñador = Integer.parseInt(sc.nextLine());
+                    if (opcionDiseñador >= 1 
+                            && opcionDiseñador <= sistema.getListaDiseñadores().size()) {
+                        diseñadorValido = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                        System.out.println("====================================================");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido ===========");
+                    System.out.println("====================================================");
+                }
+            }
+            diseñador = sistema.getListaDiseñadores().get(opcionDiseñador - 1);
+            
+        }
+    }
     
     //Listado diseñadores
     public void listarDiseñadores(){
