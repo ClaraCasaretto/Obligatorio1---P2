@@ -621,7 +621,9 @@ public class InterfazConsola {
     
     public void visualizarMural(){
         Diseñador diseñador = null;
+        Mural mural = null;
         int opcionDiseñador = 0;
+        int opcionMural = 0;
         
         
         if (sistema.getListaDiseñadores().isEmpty()) {
@@ -657,7 +659,38 @@ public class InterfazConsola {
                 }
             }
             diseñador = sistema.getListaDiseñadores().get(opcionDiseñador - 1);
-            
+            //verificar que el diseñador tenga murales
+            if (diseñador.getListaDeMurales().isEmpty()) {
+                System.out.println("====================================================");
+                System.out.println("==== Este diseñador no tiene murales registrados ===");
+                System.out.println("====================================================");
+            } else {
+                System.out.println("====================================================");
+                System.out.println("================= Murales creados: =================");
+                for (int i = 0; i < diseñador.getListaDeMurales().size(); i++) {
+                    System.out.println((i + 1) + ") " + diseñador.getListaDeMurales().get(i).getNombre());
+                }
+                System.out.println("====================================================");
+                System.out.println("============ Ingrese número del mural a : ==========");
+                boolean muralValido = false;
+                while(!muralValido){
+                    try{
+                        opcionMural = Integer.parseInt(sc.nextLine());
+                        if (opcionMural >= 1 && opcionMural <= diseñador.getListaDeMurales().size()) {
+                            muralValido = true;
+                        } else {
+                            System.out.println("====================================================");
+                            System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                            System.out.println("====================================================");
+                        }
+                    }catch(NumberFormatException e){
+                        System.out.println("====================================================");
+                        System.out.println("========= Debe ingresar un número válido ===========");
+                        System.out.println("====================================================");
+                    }
+                }
+                mural = diseñador.getListaDeMurales().get(opcionMural - 1); 
+            }
         }
     }
     
