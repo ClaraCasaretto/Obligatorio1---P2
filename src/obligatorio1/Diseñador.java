@@ -62,24 +62,13 @@ public class Diseñador implements Comparable {
         this.listaDeMurales.add(mural);
     }
 
-    /*
     public ArrayList<Ficha> getListaDeFichas() {
         return listaDeFichas;
     }
 
     public void setListaDeFichas(ArrayList<Ficha> listaDeFichas) {
         this.listaDeFichas = listaDeFichas;
-    }*/
-    
-    //agaregamos toString? si lo ponemos, ver como ponerlo
-    /*
-    @Override
-    public String toString() {
-        return "El diseñador: " + nombre
-             + "\nDirección: " + direccion
-             + "\nEmail: " + email;
     }
-    */
     
     public int cantidadDeMurales() {
         return listaDeMurales.size();
