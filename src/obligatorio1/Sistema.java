@@ -10,7 +10,7 @@ public class Sistema {
     
     private ArrayList<Diseñador>listaDiseñadores;
     private ArrayList<Ficha> listaFichas;
-    private ArrayList<Mural> listaMurales;
+    public ArrayList<Mural> listaMurales;
     
     //Constructor
     public Sistema(){
@@ -98,6 +98,10 @@ public class Sistema {
 
     public ArrayList<Mural> getListaMurales() {
         return listaMurales;
+    }
+    
+    public Mural seleccionarMural (int indice){
+        return listaMurales.get(indice);
     }
 
     public void setListaMurales(ArrayList<Mural> listaMurales) {
