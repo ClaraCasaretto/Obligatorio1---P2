@@ -6,7 +6,7 @@ package obligatorio1;
 
 import java.util.ArrayList;
 
-public class Diseñador {
+public class Diseñador implements Comparable {
     
     private String nombre;
     private String direccion;
@@ -115,5 +115,11 @@ public class Diseñador {
             }
         }
         return coloresDiferentes.size();
+    }
+    
+     //Comparar los nombre para ordenarlos alfabéticamente
+    @Override
+    public int compareTo(Object o) {
+        return this.getNombre().compareTo(((Diseñador) o).getNombre());
     }
 }

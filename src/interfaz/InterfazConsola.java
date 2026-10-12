@@ -4,6 +4,7 @@
 */
 package interfaz;
 
+import java.util.ArrayList;
 import obligatorio1.Sistema;
 import java.util.Scanner;
 import obligatorio1.*;
@@ -604,7 +605,7 @@ public class InterfazConsola {
             System.out.println("Diseño grande:");
             mostrarDiseño(ficha.getDiseñoGrande(), 5, ficha.getColor());
 
-            System.out.println("----------------------------------------------------");
+            System.out.println("====================================================");
         }
     }
     
@@ -626,8 +627,17 @@ public class InterfazConsola {
     
     //Listado diseñadores
     public void listarDiseñadores(){
-        for (int i = 0; i < sistema.getListaDiseñadores().size(); i++) {
-  
-        }
+        ArrayList<Diseñador> diseñadoresOrdenados = sistema.ordenarDiseñadores();
+        for (int i = 0; i < diseñadoresOrdenados.size(); i++) {
+            Diseñador diseñador = diseñadoresOrdenados.get(i);
+            System.out.println("====================================================");
+            System.out.println("Nombre: " + diseñador.getNombre());
+            System.out.println("Dirección: " + diseñador.getDireccion());
+            System.out.println("Email: " + diseñador.getEmail());
+            System.out.println("Cantidad de murales: " + diseñador.cantidadDeMurales());
+            System.out.println("Cantidad de fichas diferentes: " + diseñador.cantidadDeFichasDiferentes());
+            System.out.println("Cantidad de colores diferentes: " + diseñador.cantidadDeColoresDiferentes());
+            System.out.println("====================================================");
+          }
     }
 }
