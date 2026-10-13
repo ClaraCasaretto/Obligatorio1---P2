@@ -6,7 +6,7 @@ package obligatorio1;
 
 import java.util.ArrayList;
 
-public class Diseñador {
+public class Diseñador implements Comparable {
     
     private String nombre;
     private String direccion;
@@ -62,24 +62,13 @@ public class Diseñador {
         this.listaDeMurales.add(mural);
     }
 
-    /*
     public ArrayList<Ficha> getListaDeFichas() {
         return listaDeFichas;
     }
 
     public void setListaDeFichas(ArrayList<Ficha> listaDeFichas) {
         this.listaDeFichas = listaDeFichas;
-    }*/
-    
-    //agaregamos toString? si lo ponemos, ver como ponerlo
-    /*
-    @Override
-    public String toString() {
-        return "El diseñador: " + nombre
-             + "\nDirección: " + direccion
-             + "\nEmail: " + email;
     }
-    */
     
     public int cantidadDeMurales() {
         return listaDeMurales.size();
@@ -115,5 +104,11 @@ public class Diseñador {
             }
         }
         return coloresDiferentes.size();
+    }
+    
+     //Comparar los nombre para ordenarlos alfabéticamente
+    @Override
+    public int compareTo(Object o) {
+        return this.getNombre().compareTo(((Diseñador) o).getNombre());
     }
 }
