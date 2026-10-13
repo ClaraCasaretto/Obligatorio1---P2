@@ -55,7 +55,7 @@ public class InterfazConsola {
                     break;
 
                 case "5":
-                    //Modificar mural
+                    this.modificarMural();
                     break;
 
                 case "6":
@@ -510,6 +510,186 @@ public class InterfazConsola {
             System.out.println("====================================================");
             visualizarMuralCreado(mural);
         }
+    }
+    
+    public void modificarMural (){
+        Mural mural = null;
+        String opcion;
+        
+        System.out.println("====================================================");
+        System.out.println("=============== SELECCIONE UN MURAL ================");
+        System.out.println("====================================================");
+        for(int i= 0; i< sistema.getListaMurales().size(); i++){
+            //estos dos en la misma linea?
+            System.out.print((i+1) + ")" + sistema.getListaMurales().get(i).getNombre());
+            System.out.println(" by " + sistema.getListaMurales().get(i).getDiseñador().getNombre());
+        }
+        //Lo hacemos por nombre?
+        //esto requiere mas chequeos
+        String seleccionUsuario = sc.nextLine();
+        for (Mural m : sistema.listaMurales){
+            if (seleccionUsuario.equals(m.getNombre())){
+                mural=m;
+            }
+        }
+        //o lo hacemos que ponga indice de una lista dada?
+        //CREO QUE ES LA MEJOR OPCION YA QUE YA DAMOS LA LISTA NUMERADA
+        int indice = Integer.parseInt(sc.nextLine());
+        mural = sistema.seleccionarMural(indice-1);
+        
+        //FALTA COMPROBAR QUE HAYA MURALES, SI NO EXISTEN MURALES VOLVER AL MENU ANTERIOR
+        
+        System.out.println("0 - Volver");
+        System.out.println("1 - Modificar posición");
+        System.out.println("2 - Modificar ficha");
+        System.out.println("3 - Restaurar mural original");
+        
+        opcion = sc.nextLine();
+        switch (opcion) {
+            case "0":
+                //Aca vuelve al menu anterior?
+                break;
+                    
+            case "1":
+                //Modificar posicion
+                modificarPosicion(mural);
+                break;
+
+            case "2":
+                //Modificar ficha
+                modificarFicha(mural);
+                break;
+
+            case "3":
+                //restaurar original
+                mural.restaurarMural();
+                break;       
+            }
+        //Aca llamamos de nuevo a modificarMural? o directamente vuelve al menu inicial??
+    }
+    
+    public void modificarPosicion (Mural mural){
+        int fila=0;
+        int columna=0;
+        Ficha fichaSelec = null;
+        System.out.println("====================================================");
+        System.out.println("================= Ingrese la fila: =================");
+
+        boolean filaValida = false;
+        while (!filaValida) {
+            try {
+                fila = Integer.parseInt(sc.nextLine());
+                if (fila >= 1 && fila <= mural.getMural().length) {
+                    filaValida = true;
+                } else {
+                    System.out.println("====================================================");
+                    System.out.println("===== Fila fuera de rango. Inserte otro número: ====");
+                    System.out.println("====================================================");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("====================================================");
+                System.out.println("========= Debe ingresar un número válido. ==========");
+                System.out.println("====================================================");
+            }
+        }
+
+        //Insertar columna
+        System.out.println("====================================================");
+        System.out.println("=============== Ingrese la columna: ================");
+
+        boolean columnaValida = false;
+        while(!columnaValida){
+            try {
+                columna = Integer.parseInt(sc.nextLine());
+                if(columna >= 1 && columna <= mural.getMural()[0].length){
+                    columnaValida = true;
+                } else {
+                    System.out.println("====================================================");
+                    System.out.println("===== Columna fuera de rango. Inserte otro número: ====");
+                    System.out.println("====================================================");
+                }
+            } catch(NumberFormatException e){
+                System.out.println("====================================================");
+                System.out.println("========= Debe ingresar un número válido ===========");
+                System.out.println("====================================================");
+            }
+        }
+        
+        System.out.println("====================================================");
+        System.out.println("=============== Seleccione la ficha: ===============");
+        System.out.println("====================================================");
+        for(int i= 0; i< sistema.getListaFichas().size(); i++){
+            System.out.println((i+1) + ")" + sistema.getListaFichas().get(i).getNombre());
+        }
+        int nFicha=0;        
+        boolean ficha1Valida = false;
+        while (!ficha1Valida) {
+            try {
+                nFicha = Integer.parseInt(sc.nextLine());
+                if (nFicha >= 1 && nFicha <= sistema.getListaFichas().size()) {
+                    ficha1Valida = true;
+                } else {
+                    System.out.println("====================================================");
+                    System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                    System.out.println("====================================================");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("====================================================");
+                System.out.println("========= Debe ingresar un número válido ===========");
+                System.out.println("====================================================");
+            }
+        }
+        fichaSelec = sistema.getListaFichas().get(nFicha - 1);
+        //Ya con todos los datos se manda modificar la posicion
+        mural.modificarPosicion (fila, columna, fichaSelec);
+    }
+    
+    public void modificarFicha (Mural mural){
+        Ficha fichaNueva = null;
+        Ficha fichaVieja = null;
+        
+        //seleccionar que ficha va a cambiar
+        System.out.println("====================================================");
+        System.out.println("========== Seleccione la ficha a cambiar: ==========");
+        System.out.println("====================================================");
+        String vieja = sc.nextLine();
+        //agregar chequeo de que sea 1 o 2
+        //ACA ESTA EL PROBLEMA DE DISEñO DE LA CLASE MURAL
+        //PORQUE DEBERIAMOS MOSTRAR TODAS LAS FICHAS QUE LO COMPONEN Y PUEDEN SER MAS DE DOS
+        if (vieja == "1"){
+            fichaVieja = mural.getFicha1();
+        }else {
+            fichaVieja = mural.getFicha2();
+        }
+                
+        //seleccion de la ficha nueva
+        System.out.println("====================================================");
+        System.out.println("=============== Seleccione la ficha: ===============");
+        System.out.println("====================================================");
+        for(int i= 0; i< sistema.getListaFichas().size(); i++){
+            System.out.println((i+1) + ")" + sistema.getListaFichas().get(i).getNombre());
+        }
+        int nFicha=0;        
+        boolean ficha1Valida = false;
+        while (!ficha1Valida) {
+            try {
+                nFicha = Integer.parseInt(sc.nextLine());
+                if (nFicha >= 1 && nFicha <= sistema.getListaFichas().size()) {
+                    ficha1Valida = true;
+                } else {
+                    System.out.println("====================================================");
+                    System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                    System.out.println("====================================================");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("====================================================");
+                System.out.println("========= Debe ingresar un número válido ===========");
+                System.out.println("====================================================");
+            }
+        }
+        fichaNueva = sistema.getListaFichas().get(nFicha - 1);
+        mural.reemplazarFicha(fichaVieja, fichaNueva);
     }
     
     private String obtenerColor(String color) {

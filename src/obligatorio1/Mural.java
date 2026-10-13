@@ -193,11 +193,11 @@ public class Mural {
     //METODOS PARA MODIFICAR UN MURAL
     
     //Para este hay que tener cuidado por si la fila y colunma no son validas
-    public static void modificarPosicion (int fila, int columna, Ficha fichaNueva, Ficha[][] mural){
+    public void modificarPosicion (int fila, int columna, Ficha fichaNueva){
         mural[fila-1][columna-1]= fichaNueva;
     }
     
-    public static void reemplazarFicha (Ficha fichaVieja, Ficha fichaNueva, Ficha[][] mural){
+    public void reemplazarFicha (Ficha fichaVieja, Ficha fichaNueva){
         for (int i=0; i<mural.length;i++){
             for (int j=0; j<mural[i].length;j++){
                 if (mural[i][j]==fichaVieja){
@@ -207,7 +207,7 @@ public class Mural {
         }
     }
     
-    public void restaurarMural (Ficha [][] mural){
+    public void restaurarMural (){
         //logica para restaurar el mural desde la matriz original
         for (int i = 0; i < mural.length; i++) {
             for (int j = 0; j < mural[0].length; j++) {
