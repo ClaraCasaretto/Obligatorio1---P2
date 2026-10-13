@@ -74,6 +74,7 @@ public class Diseñador implements Comparable {
         return listaDeMurales.size();
     }
     
+    //Aca podria reusarse el metodo nuevo que cree en Mural: obtenerFichasUsadas
     public int cantidadDeFichasDiferentes() {
         ArrayList<Ficha> fichasDiferentes = new ArrayList<Ficha>();
         for (int i = 0; i < listaDeMurales.size(); i++) {

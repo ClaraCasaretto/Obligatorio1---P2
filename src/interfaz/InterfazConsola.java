@@ -653,16 +653,32 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("========== Seleccione la ficha a cambiar: ==========");
         System.out.println("====================================================");
-        String vieja = sc.nextLine();
-        //agregar chequeo de que sea 1 o 2
-        //ACA ESTA EL PROBLEMA DE DISEñO DE LA CLASE MURAL
-        //PORQUE DEBERIAMOS MOSTRAR TODAS LAS FICHAS QUE LO COMPONEN Y PUEDEN SER MAS DE DOS
-        if (vieja == "1"){
-            fichaVieja = mural.getFicha1();
-        }else {
-            fichaVieja = mural.getFicha2();
+        //buscamos las fichas usadas en el mural
+        ArrayList <Ficha> fichasUsadas = mural.obtenerFichasUsadas();
+        for(int i= 0; i< fichasUsadas.size(); i++){
+            System.out.println((i+1) + ")" + fichasUsadas.get(i).getNombre());
         }
-                
+        //Hay que validar que la entrada sea valida
+        int nFicha=0;
+        boolean opcionFichaValida = false;
+        while (!opcionFichaValida) {
+            try {
+                nFicha = Integer.parseInt(sc.nextLine());
+                if (nFicha >= 1 && nFicha <= fichasUsadas.size()) {
+                    opcionFichaValida = true;
+                } else {
+                    System.out.println("====================================================");
+                    System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                    System.out.println("====================================================");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("====================================================");
+                System.out.println("========= Debe ingresar un número válido ===========");
+                System.out.println("====================================================");
+            }
+        }
+        fichaVieja = fichasUsadas.get(nFicha - 1);
+        
         //seleccion de la ficha nueva
         System.out.println("====================================================");
         System.out.println("=============== Seleccione la ficha: ===============");
@@ -670,13 +686,14 @@ public class InterfazConsola {
         for(int i= 0; i< sistema.getListaFichas().size(); i++){
             System.out.println((i+1) + ")" + sistema.getListaFichas().get(i).getNombre());
         }
-        int nFicha=0;        
-        boolean ficha1Valida = false;
-        while (!ficha1Valida) {
+        //Podemos repetir las variables de validacion sin problema no?
+        nFicha=0;        
+        opcionFichaValida = false;
+        while (!opcionFichaValida) {
             try {
                 nFicha = Integer.parseInt(sc.nextLine());
                 if (nFicha >= 1 && nFicha <= sistema.getListaFichas().size()) {
-                    ficha1Valida = true;
+                    opcionFichaValida = true;
                 } else {
                     System.out.println("====================================================");
                     System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
