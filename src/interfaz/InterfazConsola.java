@@ -624,7 +624,7 @@ public class InterfazConsola {
         Mural mural = null;
         int opcionDiseñador = 0;
         int opcionMural = 0;
-        
+        int tamañoDiseño = 0;
         
         if (sistema.getListaDiseñadores().isEmpty()) {
             System.out.println("====================================================");
@@ -671,7 +671,7 @@ public class InterfazConsola {
                     System.out.println((i + 1) + ") " + diseñador.getListaDeMurales().get(i).getNombre());
                 }
                 System.out.println("====================================================");
-                System.out.println("============ Ingrese número del mural a : ==========");
+                System.out.println("====== Ingrese número del mural a visualizar : =====");
                 boolean muralValido = false;
                 while(!muralValido){
                     try{
@@ -690,6 +690,38 @@ public class InterfazConsola {
                     }
                 }
                 mural = diseñador.getListaDeMurales().get(opcionMural - 1); 
+                
+                boolean tamañoValido = false;
+                while (!tamañoValido) {
+                    System.out.println("====================================================");
+                    System.out.println("========== Seleccione el tamaño del mural ==========");
+                    System.out.println("1)Diseño chico");
+                    System.out.println("2)Diseño grande");
+                    System.out.println("====================================================");
+                    String entrada = sc.nextLine();
+                    if (entrada.equals("1")) {
+                        tamañoDiseño = 3;
+                        tamañoValido = true;
+                    } else if (entrada.equals("2")) {
+                        tamañoDiseño = 5;
+                        tamañoValido = true;
+                    } else {
+                        System.out.println("======= Opción inválida. Ingrese 1 o 2: ============");
+                    }
+                }
+                /* ESTO NO FUNCIONA TODAVIA
+                String entrada = "";
+                while (!entrada.equals("S") || !entrada.equals("s")) {
+                    System.out.println("====================================================");
+                    if (tamañoDiseño == 3) {
+                        System.out.println("================ DISEÑO CHICO =====================");
+                    } else {
+                        System.out.println("================ DISEÑO GRANDE ====================");
+                    }
+                    mostrarMural(mural, tamañoDiseño);
+                    System.out.println();
+                    System.out.println("Presione ENTER para cambiar de tamaño o S para salir.");
+                }*/
             }
         }
     }
