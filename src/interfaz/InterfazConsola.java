@@ -4,6 +4,7 @@
 */
 package interfaz;
 
+import java.util.ArrayList;
 import obligatorio1.Sistema;
 import java.util.Scanner;
 import obligatorio1.*;
@@ -59,6 +60,7 @@ public class InterfazConsola {
 
                 case "6":
                     //Visualizar mural
+                    this.visualizarMural();
                     break;
 
                 case "7":
@@ -219,7 +221,6 @@ public class InterfazConsola {
     }
     
     public void crearMural(){
-        //si no inicializamos en null no nos funciona el metodo crearMural 
         Diseñador diseñador = null;
         int opcionDiseñador = 0;
         String nombre = "";
@@ -507,7 +508,7 @@ public class InterfazConsola {
             System.out.println("====================================================");
             System.out.println("============= MURAL CREADO CORRECTAMENTE ===========");
             System.out.println("====================================================");
-            visualizarMural(mural);
+            visualizarMuralCreado(mural);
         }
     }
     
@@ -715,7 +716,7 @@ public class InterfazConsola {
     }
     
     
-    public void visualizarMural(Mural mural) {
+    public void visualizarMuralCreado(Mural mural) {
         System.out.println("====================================================");
         System.out.println("MURAL: " + mural.getNombre());
         System.out.println("DISEÑADOR: " + mural.getDiseñador().getNombre());
@@ -771,20 +772,15 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("================== LISTA DE FICHAS =================");
         System.out.println("====================================================");
-
         for (int i = 0; i < sistema.getListaFichas().size(); i++) {
             Ficha ficha = sistema.getListaFichas().get(i);
-
             System.out.println("Nombre: " + ficha.getNombre());
             System.out.println("Color: " + ficha.getColor());
-
             System.out.println("Diseño chico:");
             mostrarDiseño(ficha.getDiseñoChico(), 3, ficha.getColor());
-
             System.out.println("Diseño grande:");
             mostrarDiseño(ficha.getDiseñoGrande(), 5, ficha.getColor());
-
-            System.out.println("----------------------------------------------------");
+            System.out.println("====================================================");
         }
     }
     
@@ -803,17 +799,126 @@ public class InterfazConsola {
         }
     }
     
-    //Listado murales
-    public void listarMurales(){
-        for (int i = 0; i < sistema.getListaMurales().size(); i++) {
-  
+    public void visualizarMural(){
+        Diseñador diseñador = null;
+        Mural mural = null;
+        int opcionDiseñador = 0;
+        int opcionMural = 0;
+        int tamañoDiseño = 0;
+        
+        if (sistema.getListaDiseñadores().isEmpty()) {
+            System.out.println("====================================================");
+            System.out.println("======== No hay diseñadores registrados ============");
+            System.out.println("===== Debe registrar un diseñador primero ==========");
+            System.out.println("====================================================");
+        }else{
+            System.out.println("====================================================");
+            System.out.println("============ VISUALIZACIÓN DE UN MURAL =============");
+            System.out.println("============== Seleccione un diseñador: ============");
+            for(int i= 0; i< sistema.getListaDiseñadores().size(); i++){
+                System.out.println((i+1) + ")" + sistema.getListaDiseñadores().get(i).getNombre());
+            }
+            System.out.println("====================================================");
+            System.out.println("============ Ingrese número del diseñador: ==========");
+            boolean diseñadorValido = false;
+            while (!diseñadorValido) {
+                try {
+                    opcionDiseñador = Integer.parseInt(sc.nextLine());
+                    if (opcionDiseñador >= 1 
+                            && opcionDiseñador <= sistema.getListaDiseñadores().size()) {
+                        diseñadorValido = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                        System.out.println("====================================================");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido ===========");
+                    System.out.println("====================================================");
+                }
+            }
+            diseñador = sistema.getListaDiseñadores().get(opcionDiseñador - 1);
+            //verificar que el diseñador tenga murales
+            if (diseñador.getListaDeMurales().isEmpty()) {
+                System.out.println("====================================================");
+                System.out.println("==== Este diseñador no tiene murales registrados ===");
+                System.out.println("====================================================");
+            } else {
+                System.out.println("====================================================");
+                System.out.println("================= Murales creados: =================");
+                for (int i = 0; i < diseñador.getListaDeMurales().size(); i++) {
+                    System.out.println((i + 1) + ") " + diseñador.getListaDeMurales().get(i).getNombre());
+                }
+                System.out.println("====================================================");
+                System.out.println("====== Ingrese número del mural a visualizar : =====");
+                boolean muralValido = false;
+                while(!muralValido){
+                    try{
+                        opcionMural = Integer.parseInt(sc.nextLine());
+                        if (opcionMural >= 1 && opcionMural <= diseñador.getListaDeMurales().size()) {
+                            muralValido = true;
+                        } else {
+                            System.out.println("====================================================");
+                            System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                            System.out.println("====================================================");
+                        }
+                    }catch(NumberFormatException e){
+                        System.out.println("====================================================");
+                        System.out.println("========= Debe ingresar un número válido ===========");
+                        System.out.println("====================================================");
+                    }
+                }
+                mural = diseñador.getListaDeMurales().get(opcionMural - 1); 
+                
+                boolean tamañoValido = false;
+                while (!tamañoValido) {
+                    System.out.println("====================================================");
+                    System.out.println("========== Seleccione el tamaño del mural ==========");
+                    System.out.println("1)Diseño chico");
+                    System.out.println("2)Diseño grande");
+                    System.out.println("====================================================");
+                    String entrada = sc.nextLine();
+                    if (entrada.equals("1")) {
+                        tamañoDiseño = 3;
+                        tamañoValido = true;
+                    } else if (entrada.equals("2")) {
+                        tamañoDiseño = 5;
+                        tamañoValido = true;
+                    } else {
+                        System.out.println("======= Opción inválida. Ingrese 1 o 2: ============");
+                    }
+                }
+                /* ESTO NO FUNCIONA TODAVIA
+                String entrada = "";
+                while (!entrada.equals("S") || !entrada.equals("s")) {
+                    System.out.println("====================================================");
+                    if (tamañoDiseño == 3) {
+                        System.out.println("================ DISEÑO CHICO =====================");
+                    } else {
+                        System.out.println("================ DISEÑO GRANDE ====================");
+                    }
+                    mostrarMural(mural, tamañoDiseño);
+                    System.out.println();
+                    System.out.println("Presione ENTER para cambiar de tamaño o S para salir.");
+                }*/
+            }
         }
     }
     
     //Listado diseñadores
     public void listarDiseñadores(){
-        for (int i = 0; i < sistema.getListaDiseñadores().size(); i++) {
-  
-        }
+        ArrayList<Diseñador> diseñadoresOrdenados = sistema.ordenarDiseñadores();
+        for (int i = 0; i < diseñadoresOrdenados.size(); i++) {
+            Diseñador diseñador = diseñadoresOrdenados.get(i);
+            System.out.println("====================================================");
+            System.out.println("Nombre: " + diseñador.getNombre());
+            System.out.println("Dirección: " + diseñador.getDireccion());
+            System.out.println("Email: " + diseñador.getEmail());
+            System.out.println("Cantidad de murales: " + diseñador.cantidadDeMurales());
+            System.out.println("Cantidad de fichas diferentes: " + diseñador.cantidadDeFichasDiferentes());
+            System.out.println("Cantidad de colores diferentes: " + diseñador.cantidadDeColoresDiferentes());
+            System.out.println("====================================================");
+          }
     }
 }

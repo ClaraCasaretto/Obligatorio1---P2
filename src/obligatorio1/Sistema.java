@@ -5,6 +5,7 @@
 package obligatorio1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Sistema {
     
@@ -21,8 +22,8 @@ public class Sistema {
     
     //Cargamos datos iniciales
     public void cargarDatosIniciales() {
-        Diseñador dClara = new Diseñador("Clara", "r1234", "clara@gmail.com");
-        Diseñador dManu = new Diseñador("Manu", "d5678", "manu@gmail.com");
+        Diseñador dClara = new Diseñador("CLARA", "R1234", "CLARA@GMAIL.COM");
+        Diseñador dManu = new Diseñador("MANU", "D5678", "MANU@GMAIL.COM");
         
         agregarDiseñador(dClara);
         agregarDiseñador(dManu);
@@ -122,4 +123,11 @@ public class Sistema {
     public void agregarMural (Mural mural){
         this.listaMurales.add(mural);
     }
+    
+    public ArrayList<Diseñador> ordenarDiseñadores() {
+        ArrayList<Diseñador> diseñadoresOrdenados = new ArrayList<Diseñador>(this.getListaDiseñadores());
+        Collections.sort(diseñadoresOrdenados);
+        return diseñadoresOrdenados;
+    }
+
 }
