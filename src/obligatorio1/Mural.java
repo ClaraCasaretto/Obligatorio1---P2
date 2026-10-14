@@ -3,6 +3,7 @@
 * Clara Casaretto - N°: 250991
 */
 package obligatorio1;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Mural {
@@ -223,5 +224,17 @@ public class Mural {
                 muralOriginal[i][j] = mural[i][j];
             }
         }
+    }
+    
+    public ArrayList <Ficha> obtenerFichasUsadas (){
+        ArrayList <Ficha> fichasUsadas = new ArrayList<Ficha>();
+        for (int i = 0; i < mural.length; i++) {
+            for (int j = 0; j < mural[0].length; j++) {
+                if (!fichasUsadas.contains(mural[i][j])){
+                    fichasUsadas.add(mural[i][j]);
+                }
+            }
+        }
+        return fichasUsadas;
     }
 }
