@@ -1,4 +1,4 @@
-/*
+    /*
 * Manuel Negrin - N°: 379313
 * Clara Casaretto - N°: 250991
 */
@@ -93,8 +93,6 @@ public class Mural {
     public void setFicha2(Ficha ficha2) {
         this.ficha2 = ficha2;
     }
-   
-    //ver si necesitamos un toString
     
      //Creador de mural inicial (despues sacamos el void para que retorne la matriz?)
     public void crearMuralInicial (){
