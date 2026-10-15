@@ -906,9 +906,8 @@ public class InterfazConsola {
                         System.out.println("======= Opción inválida. Ingrese 1 o 2: ============");
                     }
                 }
-                /* ESTO NO FUNCIONA TODAVIA
                 String entrada = "";
-                while (!entrada.equals("S") || !entrada.equals("s")) {
+                while (!entrada.equalsIgnoreCase("S")) {
                     System.out.println("====================================================");
                     if (tamañoDiseño == 3) {
                         System.out.println("================ DISEÑO CHICO =====================");
@@ -917,8 +916,16 @@ public class InterfazConsola {
                     }
                     mostrarMural(mural, tamañoDiseño);
                     System.out.println();
-                    System.out.println("Presione ENTER para cambiar de tamaño o S para salir.");
-                }*/
+                    System.out.println("Presione ENTER para cambiar de tamaño o S para salir");
+                    entrada = sc.nextLine();
+                    if (entrada.isEmpty()) {
+                        if (tamañoDiseño == 3) {
+                            tamañoDiseño = 5;
+                        } else {
+                            tamañoDiseño = 3;
+                        }
+                    }
+                }
             }
         }
     }
