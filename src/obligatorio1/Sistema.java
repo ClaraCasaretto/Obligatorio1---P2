@@ -124,6 +124,7 @@ public class Sistema {
         this.listaMurales.add(mural);
     }
     
+    //tendremos que incluir @override?
     public ArrayList<Diseñador> ordenarDiseñadores() {
         ArrayList<Diseñador> diseñadoresOrdenados = new ArrayList<Diseñador>(this.getListaDiseñadores());
         Collections.sort(diseñadoresOrdenados);

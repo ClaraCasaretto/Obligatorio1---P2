@@ -518,57 +518,69 @@ public class InterfazConsola {
     public void modificarMural (){
         Mural mural = null;
         String opcion;
+        ArrayList <Mural> listaMurales = sistema.getListaMurales();
+        
+        if (listaMurales.isEmpty()){
+            System.out.println("====================================================");
+            System.out.println("================= No existen murales ===============");
+            System.out.println("====================================================");
+            //Salimos de modificar mural
+            return;
+        }
         
         System.out.println("====================================================");
         System.out.println("=============== SELECCIONE UN MURAL ================");
         System.out.println("====================================================");
         for(int i= 0; i< sistema.getListaMurales().size(); i++){
             //estos dos en la misma linea?
-            System.out.print((i+1) + ")" + sistema.getListaMurales().get(i).getNombre());
-            System.out.println(" by " + sistema.getListaMurales().get(i).getDiseñador().getNombre());
+            System.out.print((i+1) + ")" + listaMurales.get(i).getNombre());
+            System.out.println(" by " + listaMurales.get(i).getDiseñador().getNombre());
         }
-        //Lo hacemos por nombre?
-        //esto requiere mas chequeos
-        String seleccionUsuario = sc.nextLine();
-        for (Mural m : sistema.listaMurales){
-            if (seleccionUsuario.equals(m.getNombre())){
-                mural=m;
-            }
-        }
-        //o lo hacemos que ponga indice de una lista dada?
-        //CREO QUE ES LA MEJOR OPCION YA QUE YA DAMOS LA LISTA NUMERADA
+        //Seleccionamos el menu por indice
         int indice = Integer.parseInt(sc.nextLine());
         mural = sistema.seleccionarMural(indice-1);
         
-        //FALTA COMPROBAR QUE HAYA MURALES, SI NO EXISTEN MURALES VOLVER AL MENU ANTERIOR
+        //Falta validacion del indice
         
-        System.out.println("0 - Volver");
-        System.out.println("1 - Modificar posición");
-        System.out.println("2 - Modificar ficha");
-        System.out.println("3 - Restaurar mural original");
-        
-        opcion = sc.nextLine();
-        switch (opcion) {
-            case "0":
-                //Aca vuelve al menu anterior?
-                break;
+        do {
+            //Puse las opciones dentro del bucle para que se muestren de nuevo despues de ejectar una opción
+            System.out.println("0 - Volver");
+            System.out.println("1 - Modificar posición");
+            System.out.println("2 - Modificar ficha");
+            System.out.println("3 - Restaurar mural original");
+            opcion = sc.nextLine();
+            //Agregué visualizacion en todos los metodos como pide la letra
+            switch (opcion) {
+                case "0":
+                    //Aca vuelve al menu anterior
+                    break;
+
+                case "1":
+                    //Modificar posicion
+                    modificarPosicion(mural);
+                    visualizarMuralCreado(mural);
+                    break;
+
+                case "2":
+                    //Modificar ficha
+                    modificarFicha(mural);
+                    visualizarMuralCreado(mural);
+                    break;
+
+                case "3":
+                    //restaurar original
+                    mural.restaurarMural();
+                    visualizarMuralCreado(mural);
+                    break;  
                     
-            case "1":
-                //Modificar posicion
-                modificarPosicion(mural);
-                break;
-
-            case "2":
-                //Modificar ficha
-                modificarFicha(mural);
-                break;
-
-            case "3":
-                //restaurar original
-                mural.restaurarMural();
-                break;       
+                default:
+                    //Si no ingresa una opcion valida despliega esto
+                    System.out.println("====================================================");
+                    System.out.println("======= Opción inválida. Ingrese nuevamente. =======");
+                    System.out.println("====================================================");
+                    break;
             }
-        //Aca llamamos de nuevo a modificarMural? o directamente vuelve al menu inicial??
+        }while (!opcion.equals("0"));
     }
     
     public void modificarPosicion (Mural mural){
