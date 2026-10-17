@@ -130,5 +130,33 @@ public class Sistema {
         Collections.sort(diseñadoresOrdenados);
         return diseñadoresOrdenados;
     }
+    
+    public ArrayList<Mural> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
+        ArrayList<Mural> similitudesEncontradas = new ArrayList<>();
+        boolean similitudOk = false;
+        Ficha[][] matriz = mural.getMural();
+        //limites de cuadrantes viables para comparar
+        int limiteFila = matriz.length - cantFilas + 1;
+        int limiteCol = matriz[0].length - cantColumnas + 1;
+        
+        //Se buscan los murales candidatos de la lista.
+        for (int i = 0; i <  listaMurales.size(); i++) { 
+            Ficha[][] candidato = listaMurales.get(i).getMural();
+            //Se recorre el candidato de acuerdo a los limites para no recorrer todo al pedo
+            for (int j = 0; j < limiteFila; j++) {
+                for (int k = 0; k < limiteCol; k++) {
+                    if (matriz[fila-1][columna-1]==candidato[j][k]){
+                        boolean flag = true;
+                        //Aca se tiene que empezar a comparar el cuadrante con el dado por parametro
+                        //a la primera que no coincida se descarta
+                    }
+                    
+                }
+            
+            }
+        }
+        
+        return similitudesEncontradas;
+    } 
 
 }
