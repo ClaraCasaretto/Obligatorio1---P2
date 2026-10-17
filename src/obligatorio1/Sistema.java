@@ -131,6 +131,14 @@ public class Sistema {
         return diseñadoresOrdenados;
     }
     
+    //Para esto quizas deberiamos crear una clase nueva, que sea no se, similitudes ponele, para el retorno.
+    /*
+    Simulitud tiene
+        Mural muralSimilar
+        int filaInicial
+        int columnaInicial
+    */
+    //Y esa clase es la que se devuelve en el metodo. O sea un arraylist de objetos de esa clase.
     public ArrayList<Mural> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
         ArrayList<Mural> similitudesEncontradas = new ArrayList<>();
         boolean similitudOk = false;
@@ -143,19 +151,32 @@ public class Sistema {
         for (int i = 0; i <  listaMurales.size(); i++) { 
             Ficha[][] candidato = listaMurales.get(i).getMural();
             //Se recorre el candidato de acuerdo a los limites para no recorrer todo al pedo
+            //Falta agregar comprobacion para que saltee el mural que viene por parametro
             for (int j = 0; j < limiteFila; j++) {
                 for (int k = 0; k < limiteCol; k++) {
                     if (matriz[fila-1][columna-1]==candidato[j][k]){
-                        boolean flag = true;
-                        //Aca se tiene que empezar a comparar el cuadrante con el dado por parametro
-                        //a la primera que no coincida se descarta
-                    }
-                    
+                        similitudOk = true;
+                        //REVISAR INDICES DE ESTOS DOS BUCLES
+                        for (int f = 0; f < cantFilas; f++) {
+                            for (int c = 0; c < cantColumnas; c++) {
+                                if (candidato[j+f][k+c]!=matriz[fila-1+f][columna-1+c]){
+                                    similitudOk = false;
+                                    break;
+                                }
+                            }
+                            if (!similitudOk){break;}                                                   
+                        }
+                        if (similitudOk){
+                            //Guarda fila y columna de la similitud encontrada y sale del bucle de columnas
+                            similitudesEncontradas.add(listaMurales.get(i));
+                            break;
+                        }  
+                    }  
                 }
-            
+                //Si similitudOK, sale del bucle de filas
+                if (similitudOk){break;}
             }
         }
-        
         return similitudesEncontradas;
     } 
 
