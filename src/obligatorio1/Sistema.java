@@ -130,5 +130,82 @@ public class Sistema {
         Collections.sort(diseñadoresOrdenados);
         return diseñadoresOrdenados;
     }
+    
+    //Para esto quizas deberiamos crear una clase nueva, que sea no se, similitudes ponele, para el retorno.
+    /*
+    Simulitud tiene
+        Mural muralSimilar
+        int filaInicial
+        int columnaInicial
+    */
+    public class Similitud {
+        private Mural muralSimilar;
+        private int filaInicial;
+        private int columnaInicial;
+
+        public Similitud(Mural muralSimilar, int filaInicial, int columnaInicial) {
+            this.muralSimilar = muralSimilar;
+            this.filaInicial = filaInicial;
+            this.columnaInicial = columnaInicial;
+        }
+
+        public Mural getMuralSimilar() {
+            return muralSimilar;
+        }
+
+        public int getFilaInicial() {
+            return filaInicial;
+        }
+
+        public int getColumnaInicial() {
+            return columnaInicial;
+        }
+        //Esta clase en principio no necesitaria setters
+    }
+    //Y esa clase es la que se devuelve en el metodo. O sea un arraylist de objetos de esa clase.
+    public ArrayList<Similitud> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
+        ArrayList<Similitud> similitudesEncontradas = new ArrayList<>();
+        boolean similitudOk = false;
+        Ficha[][] matriz = mural.getMural();
+        //limites de cuadrantes viables para comparar
+        int limiteFila = matriz.length - cantFilas + 1;
+        int limiteCol = matriz[0].length - cantColumnas + 1;
+        
+        //Se buscan los murales candidatos de la lista.
+        for (int i = 0; i <  listaMurales.size(); i++) { 
+            Ficha[][] candidato = listaMurales.get(i).getMural();
+            //Se recorre el candidato de acuerdo a los limites para no recorrer todo al pedo
+            //Falta agregar comprobacion para que saltee el mural que viene por parametro
+            if (mural!=listaMurales.get(i)){
+                for (int j = 0; j < limiteFila; j++) {
+                    for (int k = 0; k < limiteCol; k++) {
+                        if (matriz[fila-1][columna-1]==candidato[j][k]){
+                            similitudOk = true;
+                            //REVISAR INDICES DE ESTOS DOS BUCLES
+                            for (int f = 0; f < cantFilas; f++) {
+                                for (int c = 0; c < cantColumnas; c++) {
+                                    if (candidato[j+f][k+c]!=matriz[fila-1+f][columna-1+c]){
+                                        similitudOk = false;
+                                        break;
+                                    }
+                                }
+                                if (!similitudOk){break;}                                                   
+                            }
+                            if (similitudOk){
+                                Similitud muralEncontrado = new Similitud(listaMurales.get(i), j+1, k+1);
+                                //Guarda fila y columna de la similitud encontrada y sale del bucle de columnas
+                                similitudesEncontradas.add(muralEncontrado);
+                                break;
+                            }  
+                        }  
+                    }
+                    //Si similitudOK, sale del bucle de filas
+                    if (similitudOk){break;}
+                }
+            }
+            similitudOk = false;
+        }
+        return similitudesEncontradas;
+    }
 
 }
