@@ -139,9 +139,9 @@ public class Sistema {
         int columnaInicial
     */
     public class Similitud {
-        public Mural muralSimilar;
-        public int filaInicial;
-        public int columnaInicial;
+        private Mural muralSimilar;
+        private int filaInicial;
+        private int columnaInicial;
 
         public Similitud(Mural muralSimilar, int filaInicial, int columnaInicial) {
             this.muralSimilar = muralSimilar;
@@ -160,19 +160,7 @@ public class Sistema {
         public int getColumnaInicial() {
             return columnaInicial;
         }
-
-        public void setMuralSimilar(Mural muralSimilar) {
-            this.muralSimilar = muralSimilar;
-        }
-
-        public void setFilaInicial(int filaInicial) {
-            this.filaInicial = filaInicial;
-        }
-
-        public void setColumnaInicial(int columnaInicial) {
-            this.columnaInicial = columnaInicial;
-        }
-        
+        //Esta clase en principio no necesitaria setters
     }
     //Y esa clase es la que se devuelve en el metodo. O sea un arraylist de objetos de esa clase.
     public ArrayList<Similitud> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
@@ -188,33 +176,36 @@ public class Sistema {
             Ficha[][] candidato = listaMurales.get(i).getMural();
             //Se recorre el candidato de acuerdo a los limites para no recorrer todo al pedo
             //Falta agregar comprobacion para que saltee el mural que viene por parametro
-            for (int j = 0; j < limiteFila; j++) {
-                for (int k = 0; k < limiteCol; k++) {
-                    if (matriz[fila-1][columna-1]==candidato[j][k]){
-                        similitudOk = true;
-                        //REVISAR INDICES DE ESTOS DOS BUCLES
-                        for (int f = 0; f < cantFilas; f++) {
-                            for (int c = 0; c < cantColumnas; c++) {
-                                if (candidato[j+f][k+c]!=matriz[fila-1+f][columna-1+c]){
-                                    similitudOk = false;
-                                    break;
+            if (mural!=listaMurales.get(i)){
+                for (int j = 0; j < limiteFila; j++) {
+                    for (int k = 0; k < limiteCol; k++) {
+                        if (matriz[fila-1][columna-1]==candidato[j][k]){
+                            similitudOk = true;
+                            //REVISAR INDICES DE ESTOS DOS BUCLES
+                            for (int f = 0; f < cantFilas; f++) {
+                                for (int c = 0; c < cantColumnas; c++) {
+                                    if (candidato[j+f][k+c]!=matriz[fila-1+f][columna-1+c]){
+                                        similitudOk = false;
+                                        break;
+                                    }
                                 }
+                                if (!similitudOk){break;}                                                   
                             }
-                            if (!similitudOk){break;}                                                   
-                        }
-                        if (similitudOk){
-                            Similitud muralEncontrado = new Similitud(listaMurales.get(i), j+1, k+1);
-                            //Guarda fila y columna de la similitud encontrada y sale del bucle de columnas
-                            similitudesEncontradas.add(muralEncontrado);
-                            break;
+                            if (similitudOk){
+                                Similitud muralEncontrado = new Similitud(listaMurales.get(i), j+1, k+1);
+                                //Guarda fila y columna de la similitud encontrada y sale del bucle de columnas
+                                similitudesEncontradas.add(muralEncontrado);
+                                break;
+                            }  
                         }  
-                    }  
+                    }
+                    //Si similitudOK, sale del bucle de filas
+                    if (similitudOk){break;}
                 }
-                //Si similitudOK, sale del bucle de filas
-                if (similitudOk){break;}
             }
+            similitudOk = false;
         }
         return similitudesEncontradas;
-    } 
+    }
 
 }
