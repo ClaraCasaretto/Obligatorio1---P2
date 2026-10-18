@@ -138,9 +138,45 @@ public class Sistema {
         int filaInicial
         int columnaInicial
     */
+    public class Similitud {
+        public Mural muralSimilar;
+        public int filaInicial;
+        public int columnaInicial;
+
+        public Similitud(Mural muralSimilar, int filaInicial, int columnaInicial) {
+            this.muralSimilar = muralSimilar;
+            this.filaInicial = filaInicial;
+            this.columnaInicial = columnaInicial;
+        }
+
+        public Mural getMuralSimilar() {
+            return muralSimilar;
+        }
+
+        public int getFilaInicial() {
+            return filaInicial;
+        }
+
+        public int getColumnaInicial() {
+            return columnaInicial;
+        }
+
+        public void setMuralSimilar(Mural muralSimilar) {
+            this.muralSimilar = muralSimilar;
+        }
+
+        public void setFilaInicial(int filaInicial) {
+            this.filaInicial = filaInicial;
+        }
+
+        public void setColumnaInicial(int columnaInicial) {
+            this.columnaInicial = columnaInicial;
+        }
+        
+    }
     //Y esa clase es la que se devuelve en el metodo. O sea un arraylist de objetos de esa clase.
-    public ArrayList<Mural> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
-        ArrayList<Mural> similitudesEncontradas = new ArrayList<>();
+    public ArrayList<Similitud> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
+        ArrayList<Similitud> similitudesEncontradas = new ArrayList<>();
         boolean similitudOk = false;
         Ficha[][] matriz = mural.getMural();
         //limites de cuadrantes viables para comparar
@@ -167,8 +203,9 @@ public class Sistema {
                             if (!similitudOk){break;}                                                   
                         }
                         if (similitudOk){
+                            Similitud muralEncontrado = new Similitud(listaMurales.get(i), j+1, k+1);
                             //Guarda fila y columna de la similitud encontrada y sale del bucle de columnas
-                            similitudesEncontradas.add(listaMurales.get(i));
+                            similitudesEncontradas.add(muralEncontrado);
                             break;
                         }  
                     }  
