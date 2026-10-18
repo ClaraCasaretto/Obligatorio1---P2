@@ -52,8 +52,4 @@ public class Ficha {
     public void setColor(String color) {
         this.color = color;
     }
-    
-    /*agregar un toString??*/
-    
-    
 }

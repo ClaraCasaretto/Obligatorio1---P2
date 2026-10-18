@@ -439,13 +439,11 @@ public class InterfazConsola {
                     System.out.println("====================================================");
                     System.out.println("=============== Seleccione una ficha: =============");
                     System.out.println("====================================================");
-                    for (int i = 0; i < sistema.getListaFichas().size(); i++) {
-                        System.out.println((i + 1) + ") "
-                                + sistema.getListaFichas().get(i).getNombre());
-                    }
-
+                    System.out.println("1)" + ficha1.getNombre());
+                    System.out.println("2)" + ficha2.getNombre());
+                    System.out.println("====================================================");
+                    
                     //Elegir ficha
-                    //Aca cambie porque no puede elegirse cualquier ficha, tiene que ser una de las 2 iniciales
                     boolean fichaValida = false;
                     while (!fichaValida) {
                         try {
@@ -453,11 +451,16 @@ public class InterfazConsola {
                             if (opcionFicha == 1 || opcionFicha == 2) {
                                 fichaValida = true;
                                 //Ahora la carga manual se da aca mismo
-                                if (opcionFicha ==1){
+                                if (opcionFicha == 1){
                                     mural.cargarManual(fila, columna, ficha1);
                                 }else {
                                     mural.cargarManual(fila, columna, ficha2);
                                 }
+                                // Mostrar vista previa del mural
+                                System.out.println("====================================================");
+                                System.out.println("=============== VISTA PREVIA DEL MURAL =============");
+                                System.out.println("====================================================");
+                                visualizarMuralCreado(mural);
                             } else {
                                 System.out.println("====================================================");
                                 System.out.println("======= Opción inválida. Ingrese nuevamente. =======");
@@ -918,9 +921,8 @@ public class InterfazConsola {
                         System.out.println("======= Opción inválida. Ingrese 1 o 2: ============");
                     }
                 }
-                /* ESTO NO FUNCIONA TODAVIA
                 String entrada = "";
-                while (!entrada.equals("S") || !entrada.equals("s")) {
+                while (!entrada.equalsIgnoreCase("S")) {
                     System.out.println("====================================================");
                     if (tamañoDiseño == 3) {
                         System.out.println("================ DISEÑO CHICO =====================");
@@ -929,8 +931,16 @@ public class InterfazConsola {
                     }
                     mostrarMural(mural, tamañoDiseño);
                     System.out.println();
-                    System.out.println("Presione ENTER para cambiar de tamaño o S para salir.");
-                }*/
+                    System.out.println("Presione ENTER para cambiar de tamaño o S para salir");
+                    entrada = sc.nextLine();
+                    if (entrada.isEmpty()) {
+                        if (tamañoDiseño == 3) {
+                            tamañoDiseño = 5;
+                        } else {
+                            tamañoDiseño = 3;
+                        }
+                    }
+                }
             }
         }
     }
