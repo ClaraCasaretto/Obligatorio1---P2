@@ -11,7 +11,7 @@ public class Sistema {
     
     private ArrayList<Diseñador>listaDiseñadores;
     private ArrayList<Ficha> listaFichas;
-    public ArrayList<Mural> listaMurales;
+    private ArrayList<Mural> listaMurales;
     
     //Constructor
     public Sistema(){
@@ -172,10 +172,9 @@ public class Sistema {
         int limiteCol = matriz[0].length - cantColumnas + 1;
         
         //Se buscan los murales candidatos de la lista.
-        for (int i = 0; i <  listaMurales.size(); i++) { 
+        for (int i = 0; i <  listaMurales.size(); i++) {
             Ficha[][] candidato = listaMurales.get(i).getMural();
             //Se recorre el candidato de acuerdo a los limites para no recorrer todo al pedo
-            //Falta agregar comprobacion para que saltee el mural que viene por parametro
             if (mural!=listaMurales.get(i)){
                 for (int j = 0; j < limiteFila; j++) {
                     for (int k = 0; k < limiteCol; k++) {

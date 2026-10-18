@@ -6,6 +6,7 @@ package interfaz;
 
 import java.util.ArrayList;
 import obligatorio1.Sistema;
+import obligatorio1.Sistema.Similitud;
 import java.util.Scanner;
 import obligatorio1.*;
 
@@ -70,6 +71,7 @@ public class InterfazConsola {
 
                 case "8":
                     //Comparar similitud de murales
+                    this.compararMurales();
                     break;
 
                 case "9":
@@ -518,6 +520,7 @@ public class InterfazConsola {
     public void modificarMural (){
         Mural mural = null;
         String opcion;
+        int muralSelec=0;
         ArrayList <Mural> listaMurales = sistema.getListaMurales();
         
         if (listaMurales.isEmpty()){
@@ -532,15 +535,29 @@ public class InterfazConsola {
         System.out.println("=============== SELECCIONE UN MURAL ================");
         System.out.println("====================================================");
         for(int i= 0; i< sistema.getListaMurales().size(); i++){
-            //estos dos en la misma linea?
-            System.out.print((i+1) + ")" + listaMurales.get(i).getNombre());
-            System.out.println(" by " + listaMurales.get(i).getDiseñador().getNombre());
+                System.out.println((i+1) + ")" + sistema.getListaMurales().get(i).getNombre());
         }
-        //Seleccionamos el menu por indice
-        int indice = Integer.parseInt(sc.nextLine());
-        mural = sistema.seleccionarMural(indice-1);
-        
-        //Falta validacion del indice
+        System.out.println("====================================================");
+        System.out.println("============== Ingrese número del mural: ===========");
+        boolean muralValido = false;
+        while (!muralValido) {
+            try {
+                muralSelec = Integer.parseInt(sc.nextLine());
+                if (muralSelec >= 1 
+                        && muralSelec <= sistema.getListaMurales().size()) {
+                    muralValido = true;
+                } else {
+                    System.out.println("====================================================");
+                    System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                    System.out.println("====================================================");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("====================================================");
+                System.out.println("========= Debe ingresar un número válido ===========");
+                System.out.println("====================================================");
+            }
+        }
+        mural = sistema.seleccionarMural(muralSelec-1);
         
         do {
             //Puse las opciones dentro del bucle para que se muestren de nuevo despues de ejectar una opción
@@ -958,6 +975,159 @@ public class InterfazConsola {
             System.out.println("Cantidad de fichas diferentes: " + diseñador.cantidadDeFichasDiferentes());
             System.out.println("Cantidad de colores diferentes: " + diseñador.cantidadDeColoresDiferentes());
             System.out.println("====================================================");
-          }
+        }
+    }
+    
+    //Comparar similitud de murales
+    public void compararMurales(){
+        Mural mural = null;
+        int fila = 0;
+        int columna = 0;
+        int cantFilas = 0;
+        int cantColumnas = 0;
+        int muralSelec = 0;
+        System.out.println("====================================================");
+        System.out.println("=========== COMPARAR SIMILITUD DE MURALES ==========");
+        System.out.println("====================================================");
+        if (sistema.getListaMurales().isEmpty()) {
+            System.out.println("====================================================");
+            System.out.println("============= No hay murales existentes ============");
+            System.out.println("====================================================");
+        }else{
+            System.out.println("====================================================");
+            System.out.println("=============== Seleccione un mural: ===============");
+            System.out.println("====================================================");
+            for(int i= 0; i< sistema.getListaMurales().size(); i++){
+                System.out.println((i+1) + ")" + sistema.getListaMurales().get(i).getNombre());
+            }
+            System.out.println("====================================================");
+            System.out.println("============== Ingrese número del mural: ===========");
+            boolean muralValido = false;
+            while (!muralValido) {
+                try {
+                    muralSelec = Integer.parseInt(sc.nextLine());
+                    if (muralSelec >= 1 
+                            && muralSelec <= sistema.getListaMurales().size()) {
+                        muralValido = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("======= Opción inválida. Ingrese nuevamente: =======");
+                        System.out.println("====================================================");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido ===========");
+                    System.out.println("====================================================");
+                }
+            }
+        
+            mural = sistema.getListaMurales().get(muralSelec-1);
+            System.out.println("====================================================");
+            System.out.println("================= Ingrese la fila: =================");
+            System.out.println("====================================================");
+            
+            boolean filaValida = false;
+            while (!filaValida) {
+                try {
+                    fila = Integer.parseInt(sc.nextLine());
+                    if (fila >= 1 && fila <= mural.getMural().length) {
+                        filaValida = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("===== Fila fuera de rango. Inserte otro número: ====");
+                        System.out.println("====================================================");
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido. ==========");
+                    System.out.println("====================================================");
+                }
+            }
+
+            //Insertar columna
+            System.out.println("====================================================");
+            System.out.println("=============== Ingrese la columna: ================");
+            System.out.println("====================================================");
+            
+            boolean columnaValida = false;
+            while(!columnaValida){
+                try {
+                    columna = Integer.parseInt(sc.nextLine());
+                    if(columna >= 1 && columna <= mural.getMural()[0].length){
+                        columnaValida = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("=== Columna fuera de rango. Inserte otro número: ===");
+                        System.out.println("====================================================");
+                    }
+                } catch(NumberFormatException e){
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido ===========");
+                    System.out.println("====================================================");
+                }
+            }
+
+            System.out.println("====================================================");
+            System.out.println("====== Ingrese la cantidad de filas del área: ======");
+            System.out.println("====================================================");
+            
+            boolean cantFilaValida = false;
+            while (!cantFilaValida) {
+                try {
+                    cantFilas = Integer.parseInt(sc.nextLine());
+                    if (cantFilas >= 1 && cantFilas <= mural.getMural().length-fila+1) {
+                        cantFilaValida = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("=== Cantidad fuera de rango. Inserte otro número: ==");
+                        System.out.println("====================================================");
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido. ==========");
+                    System.out.println("====================================================");
+                }
+            }
+
+            //Insertar columna
+            System.out.println("====================================================");
+            System.out.println("===== Ingrese la cantidad de columnas del área: ====");
+            System.out.println("====================================================");
+            
+            boolean cantColumnaValida = false;
+            while(!cantColumnaValida){
+                try {
+                    cantColumnas = Integer.parseInt(sc.nextLine());
+                    if(cantColumnas >= 1 && cantColumnas <= mural.getMural()[0].length-columna+1){
+                        cantColumnaValida = true;
+                    } else {
+                        System.out.println("====================================================");
+                        System.out.println("=== Cantidad fuera de rango. Inserte otro número: ==");
+                        System.out.println("====================================================");
+                    }
+                } catch(NumberFormatException e){
+                    System.out.println("====================================================");
+                    System.out.println("========= Debe ingresar un número válido ===========");
+                    System.out.println("====================================================");
+                }
+            }
+            ArrayList <Similitud> coincidencias = sistema.compararMurales(mural, fila, columna, cantFilas, cantColumnas);
+            if (coincidencias.isEmpty()){
+                System.out.println("====================================================");
+                System.out.println("========== No se encontraron coincidencias =========");
+                System.out.println("====================================================");
+            }else {
+                for (int i = 0; i < coincidencias.size(); i++) {
+                    Similitud muralSimilar = coincidencias.get(i);
+                    System.out.println("====================================================");
+                    System.out.println("Nombre: " + muralSimilar.getMuralSimilar().getNombre());
+                    System.out.println("Fila de coincidencia: " + muralSimilar.getFilaInicial());
+                    System.out.println("Columna de coincidencia: " + muralSimilar.getColumnaInicial());
+                    System.out.println("====================================================");
+                }
+            }
+        }
     }
 }
