@@ -94,7 +94,7 @@ public class Mural {
         this.ficha2 = ficha2;
     }
     
-     //Creador de mural inicial (despues sacamos el void para que retorne la matriz?)
+     //Creador de mural inicial 
     public void crearMuralInicial (){
         if (formato == 'D'){
             cargarDamero (ficha1, ficha2, mural);
