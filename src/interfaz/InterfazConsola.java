@@ -6,7 +6,7 @@ package interfaz;
 
 import java.util.ArrayList;
 import obligatorio1.Sistema;
-import obligatorio1.Sistema.Similitud;
+import obligatorio1.Similitud;
 import java.util.Scanner;
 import obligatorio1.*;
 
@@ -381,14 +381,17 @@ public class InterfazConsola {
             }
             ficha2 = sistema.getListaFichas().get(opcionFicha2 - 1); 
             
-            //me genera duda donde va esto:
             Mural mural = new Mural(diseñador, nombre, formato, ficha1, ficha2);
         
             //cargar mural manual
             if(formato == 'M'){
                 //Carga inicial con ficha VACIA
-                //Revisar como consigue la ficha vacia porque ahora funciona por como esta precargado
-                Ficha vacia = sistema.getListaFichas().get(sistema.getListaFichas().size()-1);
+                Ficha vacia=null;
+                for(int i= 0; i< sistema.getListaFichas().size(); i++){
+                    if (sistema.getListaFichas().get(i).getNombre().equals("VACIA")){
+                        vacia = sistema.getListaFichas().get(i);
+                    }
+                }
                 mural.inicializarManual(vacia);
                 char continuar = 'S';
                 while (continuar == 'S') {
@@ -989,9 +992,9 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("=========== COMPARAR SIMILITUD DE MURALES ==========");
         System.out.println("====================================================");
-        if (sistema.getListaMurales().isEmpty()) {
+        if (sistema.getListaMurales().isEmpty()||sistema.getListaMurales().size()==1) {
             System.out.println("====================================================");
-            System.out.println("============= No hay murales existentes ============");
+            System.out.println("===== No hay murales suficientes para comparar =====");
             System.out.println("====================================================");
         }else{
             System.out.println("====================================================");
@@ -1002,6 +1005,7 @@ public class InterfazConsola {
             }
             System.out.println("====================================================");
             System.out.println("============== Ingrese número del mural: ===========");
+            System.out.println("====================================================");
             boolean muralValido = false;
             while (!muralValido) {
                 try {
@@ -1045,7 +1049,6 @@ public class InterfazConsola {
                 }
             }
 
-            //Insertar columna
             System.out.println("====================================================");
             System.out.println("=============== Ingrese la columna: ================");
             System.out.println("====================================================");
@@ -1091,7 +1094,6 @@ public class InterfazConsola {
                 }
             }
 
-            //Insertar columna
             System.out.println("====================================================");
             System.out.println("===== Ingrese la cantidad de columnas del área: ====");
             System.out.println("====================================================");

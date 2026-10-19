@@ -138,30 +138,6 @@ public class Sistema {
         int filaInicial
         int columnaInicial
     */
-    public class Similitud {
-        private Mural muralSimilar;
-        private int filaInicial;
-        private int columnaInicial;
-
-        public Similitud(Mural muralSimilar, int filaInicial, int columnaInicial) {
-            this.muralSimilar = muralSimilar;
-            this.filaInicial = filaInicial;
-            this.columnaInicial = columnaInicial;
-        }
-
-        public Mural getMuralSimilar() {
-            return muralSimilar;
-        }
-
-        public int getFilaInicial() {
-            return filaInicial;
-        }
-
-        public int getColumnaInicial() {
-            return columnaInicial;
-        }
-        //Esta clase en principio no necesitaria setters
-    }
     //Y esa clase es la que se devuelve en el metodo. O sea un arraylist de objetos de esa clase.
     public ArrayList<Similitud> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
         ArrayList<Similitud> similitudesEncontradas = new ArrayList<>();
