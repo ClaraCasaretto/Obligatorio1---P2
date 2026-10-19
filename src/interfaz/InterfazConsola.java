@@ -394,6 +394,8 @@ public class InterfazConsola {
                 }
                 mural.inicializarManual(vacia);
                 char continuar = 'S';
+                boolean usoFicha1 = false;
+                boolean usoFicha2 = false;
                 while (continuar == 'S') {
                     //Insertar fila
                     System.out.println("====================================================");
@@ -458,8 +460,10 @@ public class InterfazConsola {
                                 //Ahora la carga manual se da aca mismo
                                 if (opcionFicha == 1){
                                     mural.cargarManual(fila, columna, ficha1);
+                                    usoFicha1 = true;
                                 }else {
                                     mural.cargarManual(fila, columna, ficha2);
+                                    usoFicha2 = true;
                                 }
                                 // Mostrar vista previa del mural
                                 System.out.println("====================================================");
@@ -505,6 +509,13 @@ public class InterfazConsola {
                             System.out.println("========= Debe ingresar S o N. Intente: ===========");
                             System.out.println("====================================================");
                         }
+                    }
+                    if (continuar == 'N' && (!usoFicha1 || !usoFicha2)) {
+                        System.out.println("====================================================");
+                        System.out.println("========= No puede finalizar el mural. =============");
+                        System.out.println("===== Debe utilizar las dos fichas al menos una vez. ");
+                        System.out.println("====================================================");
+                        continuar = 'S';
                     }
                 }
             } else {
