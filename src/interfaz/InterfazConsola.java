@@ -12,7 +12,7 @@ import obligatorio1.*;
 
 public class InterfazConsola {
     
-    //iniciar sistema con el menu
+    //Iniciar sistema con el menu
     
     private Sistema sistema;
     private Scanner sc;
@@ -28,7 +28,7 @@ public class InterfazConsola {
         String opcion = "";
 
         do {
-            //opciones del menu cuando el usuario presiona 
+            //Opciones del menu cuando el usuario presiona 
             mostrarMenu();
             opcion = sc.nextLine();
              switch (opcion) {
@@ -52,15 +52,17 @@ public class InterfazConsola {
                     break;
 
                 case "4":
+                    //Crear un mural
                     this.crearMural();
                     break;
 
                 case "5":
+                    //Modificar un mural
                     this.modificarMural();
                     break;
 
                 case "6":
-                    //Visualizar mural
+                    //Visualizar un mural
                     this.visualizarMural();
                     break;
 
@@ -123,7 +125,7 @@ public class InterfazConsola {
         System.out.println("========== Ingrese nombre del diseñador: ==========");
         nombre = sc.nextLine().toUpperCase().trim();
         
-        //valida que no exista otro diseñador igual, y que no este vacio
+        //Valida que no exista otro diseñador igual, y que no este vacio
         while(sistema.existeDiseñador(nombre)||nombre.isEmpty()){
             System.out.println("========== Nombre existente o inválido ==========");
             System.out.println("============= Ingrese otro nombre: ==============");            
@@ -165,9 +167,6 @@ public class InterfazConsola {
             nombre = sc.nextLine().toUpperCase().trim();
         }
         
-        //validacion si es un color que se puede. Estos son los que se pueden: 
-        //"R: rojo, "A": azul, "B": blanco, "N": negro, "M": amarillo, "V": verde,
-        //"G": magenta, "C": celeste
         System.out.println("========== Ingrese el color de la ficha: ===========");
         System.out.println("R: Rojo | A: Azul | B: Blanco | N: Negro");
         System.out.println("M: Amarillo | V: Verde | G: Magenta | C: Celeste");
@@ -185,8 +184,6 @@ public class InterfazConsola {
             color = sc.nextLine().toUpperCase().trim();
         }
         
-        //validar lo de diseño chico o grande
-        //Y si validamos con un try / catch?
         System.out.println("====================================================");
         System.out.println("===== Ingrese el diseño chico (9 caracteres): =====");
         diseñoChico = sc.nextLine();
@@ -234,8 +231,6 @@ public class InterfazConsola {
         int fila = 0;
         int columna = 0;
         int opcionFicha = 0;
-        Ficha fichaElegida = null;
-        
         
         //validar que haya diseñadores registrados
         if (sistema.getListaDiseñadores().isEmpty()) {
@@ -380,7 +375,7 @@ public class InterfazConsola {
             ficha2 = sistema.getListaFichas().get(opcionFicha2 - 1); 
             Mural mural = new Mural(diseñador, nombre, formato, ficha1, ficha2);
         
-            //cargar mural manual
+            //Cargar mural manual
             if(formato == 'M'){
                 //Carga inicial con ficha VACIA
                 Ficha vacia=null;
@@ -570,16 +565,14 @@ public class InterfazConsola {
         mural = sistema.seleccionarMural(muralSelec-1);
         
         do {
-            //Puse las opciones dentro del bucle para que se muestren de nuevo despues de ejectar una opción
             System.out.println("0 - Volver");
             System.out.println("1 - Modificar posición");
             System.out.println("2 - Modificar ficha");
             System.out.println("3 - Restaurar mural original");
             opcion = sc.nextLine();
-            //Agregué visualizacion en todos los metodos como pide la letra
             switch (opcion) {
                 case "0":
-                    //Aca vuelve al menu anterior
+                    //Vuelve al menu anterior
                     break;
 
                 case "1":
@@ -595,7 +588,7 @@ public class InterfazConsola {
                     break;
 
                 case "3":
-                    //restaurar original
+                    //Restaurar original
                     mural.restaurarMural();
                     visualizarMuralCreado(mural);
                     break;  
@@ -683,25 +676,23 @@ public class InterfazConsola {
             }
         }
         fichaSelec = sistema.getListaFichas().get(nFicha - 1);
-        mural.getDiseñador().agregarFicha(fichaSelec);
         //Ya con todos los datos se manda modificar la posicion
         mural.modificarPosicion (fila, columna, fichaSelec);
+        mural.getDiseñador().agregarFicha(fichaSelec);
     }
     
     public void modificarFicha (Mural mural){
         Ficha fichaNueva = null;
         Ficha fichaVieja = null;
         
-        //seleccionar que ficha va a cambiar
+        //Seleccionar que ficha va a cambiar
         System.out.println("====================================================");
         System.out.println("========== Seleccione la ficha a cambiar: ==========");
         System.out.println("====================================================");
-        //buscamos las fichas usadas en el mural
         ArrayList <Ficha> fichasUsadas = mural.obtenerFichasUsadas();
         for(int i= 0; i< fichasUsadas.size(); i++){
             System.out.println((i+1) + ")" + fichasUsadas.get(i).getNombre());
         }
-        //Hay que validar que la entrada sea valida
         int nFicha=0;
         boolean opcionFichaValida = false;
         while (!opcionFichaValida) {
@@ -722,14 +713,13 @@ public class InterfazConsola {
         }
         fichaVieja = fichasUsadas.get(nFicha - 1);
         
-        //seleccion de la ficha nueva
+        //Seleccion de la ficha nueva
         System.out.println("====================================================");
         System.out.println("=============== Seleccione la ficha: ===============");
         System.out.println("====================================================");
         for(int i= 0; i< sistema.getListaFichas().size(); i++){
             System.out.println((i+1) + ")" + sistema.getListaFichas().get(i).getNombre());
         }
-        //Podemos repetir las variables de validacion sin problema no?
         nFicha=0;        
         opcionFichaValida = false;
         while (!opcionFichaValida) {
@@ -749,8 +739,8 @@ public class InterfazConsola {
             }
         }
         fichaNueva = sistema.getListaFichas().get(nFicha - 1);
-        mural.getDiseñador().agregarFicha(fichaNueva);
         mural.reemplazarFicha(fichaVieja, fichaNueva);
+        mural.getDiseñador().agregarFicha(fichaNueva);
     }
     
     private String obtenerColor(String color) {
@@ -795,7 +785,6 @@ public class InterfazConsola {
         sc.nextLine();
     }
     
-    //manu, dejarias esto aca? o lo mandamos a otra clase?
     private void mostrarMural(Mural mural, int tamañoDiseño) {
         Ficha[][] matriz = mural.getMural();
         for (int i = 0; i < matriz.length; i++) {
@@ -844,8 +833,7 @@ public class InterfazConsola {
             System.out.println("====================================================");
         }
     }
-    
-    //manu, dejarias esto aca? o lo mandamos a otra clase?
+  
     private void mostrarDiseño(String diseño, int columnas, String color) {
         String codigoColor = obtenerColor(color);
         for (int i = 0; i < diseño.length(); i++) {
@@ -900,7 +888,7 @@ public class InterfazConsola {
                 }
             }
             diseñador = sistema.getListaDiseñadores().get(opcionDiseñador - 1);
-            //verificar que el diseñador tenga murales
+            //Verificar que el diseñador tenga murales
             if (diseñador.getListaDeMurales().isEmpty()) {
                 System.out.println("====================================================");
                 System.out.println("==== Este diseñador no tiene murales registrados ===");
