@@ -121,13 +121,13 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("============ REGISTRAR NUEVO DISEÑADOR ============");
         System.out.println("========== Ingrese nombre del diseñador: ==========");
-        nombre = sc.nextLine().toUpperCase();
+        nombre = sc.nextLine().toUpperCase().trim();
         
-        //valida que no exista otro diseñador igual
-        while (sistema.existeDiseñador(nombre)) {
-            System.out.println("============= ¡Ya existe ese diseñador! ============");
-            System.out.println("============== Ingrese otro nombre: ================");            
-            nombre = sc.nextLine().toUpperCase();
+        //valida que no exista otro diseñador igual, y que no este vacio
+        while(sistema.existeFicha(nombre)||nombre.isEmpty()){
+            System.out.println("========== Nombre existente o inválido ==========");
+            System.out.println("============= Ingrese otro nombre: ==============");            
+            nombre = sc.nextLine().toUpperCase().trim();
         }
 
         System.out.println("================ Ingrese dirección: ================");
@@ -157,12 +157,12 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("============== REGISTRAR NUEVA FICHA ===============");
         System.out.println("============ Ingrese nombre de la ficha: ============");
-        nombre = sc.nextLine().toUpperCase();
+        nombre = sc.nextLine().toUpperCase().trim();
         
-        while(sistema.existeFicha(nombre)){
-            System.out.println("============= ¡Ya existe esa ficha! ============");
+        while(sistema.existeFicha(nombre)||nombre.isEmpty()){
+            System.out.println("========== Nombre existente o inválido ==========");
             System.out.println("============= Ingrese otro nombre: ==============");            
-            nombre = sc.nextLine().toUpperCase();
+            nombre = sc.nextLine().toUpperCase().trim();
         }
         
         //validacion si es un color que se puede. Estos son los que se pueden: 
@@ -172,7 +172,7 @@ public class InterfazConsola {
         System.out.println("R: Rojo | A: Azul | B: Blanco | N: Negro");
         System.out.println("M: Amarillo | V: Verde | G: Magenta | C: Celeste");
         System.out.println("====================================================");
-        color = sc.nextLine().toUpperCase();
+        color = sc.nextLine().toUpperCase().trim();
         
         while (!color.equals("R") && !color.equals("A") && !color.equals("B") && 
                !color.equals("N") && !color.equals("M") && !color.equals("V") && 
@@ -182,7 +182,7 @@ public class InterfazConsola {
             System.out.println("R: Rojo | A: Azul | B: Blanco | N: Negro");
             System.out.println("M: Amarillo | V: Verde | G: Magenta | C: Celeste");
             System.out.println("================ Ingrese otro color: ===============");
-            color = sc.nextLine().toUpperCase();
+            color = sc.nextLine().toUpperCase().trim();
         }
         
         //validar lo de diseño chico o grande
@@ -190,10 +190,10 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("===== Ingrese el diseño chico (9 caracteres): =====");
         diseñoChico = sc.nextLine();
-        while (diseñoChico.length() != 9) {
+        while (diseñoChico.length() != 9 || diseñoChico.contains(" ")) {
             System.out.println("====================================================");
             System.out.println("================= Diseño inválido ==================");
-            System.out.println("== El diseño debe tener exactamente 9 caracteres. ==");
+            System.out.println("== El diseño debe tener 9 caracteres sin espacios ==");
             System.out.println("=============== Ingrese nuevamente: ================");
             diseñoChico = sc.nextLine();
         }
@@ -201,11 +201,11 @@ public class InterfazConsola {
         System.out.println("====================================================");
         System.out.println("==== Ingrese el diseño grande (25 caracteres): ====");
         diseñoGrande = sc.nextLine();
-            while (diseñoGrande.length() != 25) {
-                System.out.println("====================================================");
-                System.out.println("================= Diseño inválido ==================");
-                System.out.println("= El diseño debe tener exactamente 25 caracteres. =");
-                System.out.println("=============== Ingrese nuevamente: ================");
+            while (diseñoGrande.length() != 25 || diseñoGrande.contains(" ")) {
+                System.out.println("=====================================================");
+                System.out.println("================= Diseño inválido ===================");
+                System.out.println("== El diseño debe tener 25 caracteres sin espacios ==");
+                System.out.println("=============== Ingrese nuevamente: =================");
                 diseñoGrande = sc.nextLine();
             }
         
@@ -282,14 +282,12 @@ public class InterfazConsola {
             System.out.println("====================================================");
             System.out.println("============= Ingrese nombre del mural: ============");
             System.out.println("====================================================");
-            nombre = sc.nextLine().toUpperCase();
+            nombre = sc.nextLine().toUpperCase().trim();
 
-            while(sistema.existeMural(nombre)){
-                System.out.println("====================================================");
-                System.out.println("============== ¡Ya existe ese mural! ===============");
-                System.out.println("=============== Ingrese otro nombre: ===============");
-                System.out.println("====================================================");
-                nombre = sc.nextLine().toUpperCase();
+            while(sistema.existeFicha(nombre)||nombre.isEmpty()){
+                System.out.println("========== Nombre existente o inválido ==========");
+                System.out.println("============= Ingrese otro nombre: ==============");            
+                nombre = sc.nextLine().toUpperCase().trim();
             }
 
             System.out.println("====================================================");
