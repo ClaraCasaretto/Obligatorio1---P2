@@ -24,8 +24,6 @@ public class Diseñador implements Comparable {
         listaDeFichas = new ArrayList<Ficha>();
     }
     
-    //getters & setters
-   //ver cuales realmente neceistamos y cuales no 
     public String getNombre() {
         return nombre;
     }
@@ -79,8 +77,7 @@ public class Diseñador implements Comparable {
     public int cantidadDeMurales() {
         return listaDeMurales.size();
     }
-    
-    //Aca podria reusarse el metodo nuevo que cree en Mural: obtenerFichasUsadas
+
     public int cantidadDeFichasDiferentes() {
         ArrayList<Ficha> fichasDiferentes = new ArrayList<>();
         for (int i = 0; i < listaDeFichas.size(); i++) {    

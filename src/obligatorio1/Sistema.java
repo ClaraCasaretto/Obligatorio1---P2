@@ -22,11 +22,11 @@ public class Sistema {
     
     //Cargamos datos iniciales
     public void cargarDatosIniciales() {
-        Diseñador dClara = new Diseñador("CLARA", "R1234", "CLARA@GMAIL.COM");
-        Diseñador dManu = new Diseñador("MANU", "D5678", "MANU@GMAIL.COM");
+        //Diseñador dClara = new Diseñador("CLARA", "R1234", "CLARA@GMAIL.COM");
+        //Diseñador dManu = new Diseñador("MANU", "D5678", "MANU@GMAIL.COM");
         
-        agregarDiseñador(dClara);
-        agregarDiseñador(dManu);
+        //agregarDiseñador(dClara);
+        //agregarDiseñador(dManu);
         
        Ficha sol = new Ficha("SOL", "\\|/-*-/|\\", "..|...\\|/.--*--./|\\...|..", "M");
        Ficha cuadrado = new Ficha("CUADRADO","+-+|.|+-+","+---+|...||...||...|+---+", "N");
@@ -47,8 +47,6 @@ public class Sistema {
        agregarFicha(vacia);
     }
     
-    
-    //Getters & Setters
     public ArrayList<Diseñador> getListaDiseñadores() {
         return listaDiseñadores;
     }
@@ -57,12 +55,12 @@ public class Sistema {
         this.listaDiseñadores = listaDiseñador;
     }
     
-    //agrega un Diseñador a la lista Diseñador
+    //Agrega un Diseñador a la lista Diseñador
     public void agregarDiseñador(Diseñador unDiseñador){
         this.listaDiseñadores.add(unDiseñador);
     }
     
-    //valida si ya existe un diseñador con ese nombre
+    //Valida si ya existe un diseñador con ese nombre
     public boolean existeDiseñador(String unNombre){
         boolean yaExiste = false;
         for (int i = 0; i < this.listaDiseñadores.size() && !yaExiste; i++) {
@@ -81,12 +79,12 @@ public class Sistema {
         this.listaFichas = listaFichas;
     }
     
-    //agrega una ficha en la lista de fichas
+    //Agrega una ficha en la lista de fichas
     public void agregarFicha (Ficha unaFicha){
         this.listaFichas.add(unaFicha);
     }
     
-    //valida si ya existe una ficha con ese nombre
+    //Valida si ya existe una ficha con ese nombre
     public boolean existeFicha(String unNombre){
         boolean yaExiste = false;
         for (int i = 0; i < this.listaFichas.size() && !yaExiste; i++) {
@@ -109,7 +107,7 @@ public class Sistema {
         this.listaMurales = listaMurales;
     }
   
-    //valida si existe ya un mural con ese nombre
+    //Valida si existe ya un mural con ese nombre
     public boolean existeMural(String unNombre){
         boolean yaExiste = false;
         for (int i = 0; i < this.listaMurales.size(); i++) {
@@ -129,20 +127,12 @@ public class Sistema {
         Collections.sort(diseñadoresOrdenados);
         return diseñadoresOrdenados;
     }
-    
-    //Para esto quizas deberiamos crear una clase nueva, que sea no se, similitudes ponele, para el retorno.
-    /*
-    Simulitud tiene
-        Mural muralSimilar
-        int filaInicial
-        int columnaInicial
-    */
-    //Y esa clase es la que se devuelve en el metodo. O sea un arraylist de objetos de esa clase.
+
     public ArrayList<Similitud> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
         ArrayList<Similitud> similitudesEncontradas = new ArrayList<>();
         boolean similitudOk = false;
         Ficha[][] matriz = mural.getMural();
-        //limites de cuadrantes viables para comparar
+        //Limites de cuadrantes viables para comparar
         int limiteFila = matriz.length - cantFilas + 1;
         int limiteCol = matriz[0].length - cantColumnas + 1;
         
@@ -155,7 +145,6 @@ public class Sistema {
                     for (int k = 0; k < limiteCol; k++) {
                         if (matriz[fila-1][columna-1]==candidato[j][k]){
                             similitudOk = true;
-                            //REVISAR INDICES DE ESTOS DOS BUCLES
                             for (int f = 0; f < cantFilas; f++) {
                                 for (int c = 0; c < cantColumnas; c++) {
                                     if (candidato[j+f][k+c]!=matriz[fila-1+f][columna-1+c]){

@@ -19,8 +19,6 @@ public class Ficha {
         this.color = color;
     }
 
-    //getters & setters
-    //ver cuales realmente neceistamos y cuales no 
     public String getNombre() {
         return nombre;
     }
