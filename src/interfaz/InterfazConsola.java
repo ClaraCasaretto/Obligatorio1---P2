@@ -124,7 +124,7 @@ public class InterfazConsola {
         nombre = sc.nextLine().toUpperCase().trim();
         
         //valida que no exista otro diseñador igual, y que no este vacio
-        while(sistema.existeFicha(nombre)||nombre.isEmpty()){
+        while(sistema.existeDiseñador(nombre)||nombre.isEmpty()){
             System.out.println("========== Nombre existente o inválido ==========");
             System.out.println("============= Ingrese otro nombre: ==============");            
             nombre = sc.nextLine().toUpperCase().trim();
@@ -284,7 +284,7 @@ public class InterfazConsola {
             System.out.println("====================================================");
             nombre = sc.nextLine().toUpperCase().trim();
 
-            while(sistema.existeFicha(nombre)||nombre.isEmpty()){
+            while(sistema.existeMural(nombre)||nombre.isEmpty()){
                 System.out.println("========== Nombre existente o inválido ==========");
                 System.out.println("============= Ingrese otro nombre: ==============");            
                 nombre = sc.nextLine().toUpperCase().trim();
@@ -378,7 +378,6 @@ public class InterfazConsola {
                 }
             }
             ficha2 = sistema.getListaFichas().get(opcionFicha2 - 1); 
-            
             Mural mural = new Mural(diseñador, nombre, formato, ficha1, ficha2);
         
             //cargar mural manual
@@ -392,8 +391,6 @@ public class InterfazConsola {
                 }
                 mural.inicializarManual(vacia);
                 char continuar = 'S';
-                boolean usoFicha1 = false;
-                boolean usoFicha2 = false;
                 while (continuar == 'S') {
                     //Insertar fila
                     System.out.println("====================================================");
@@ -458,10 +455,8 @@ public class InterfazConsola {
                                 //Ahora la carga manual se da aca mismo
                                 if (opcionFicha == 1){
                                     mural.cargarManual(fila, columna, ficha1);
-                                    usoFicha1 = true;
                                 }else {
                                     mural.cargarManual(fila, columna, ficha2);
-                                    usoFicha2 = true;
                                 }
                                 // Mostrar vista previa del mural
                                 System.out.println("====================================================");
@@ -508,7 +503,8 @@ public class InterfazConsola {
                             System.out.println("====================================================");
                         }
                     }
-                    if (continuar == 'N' && (!usoFicha1 || !usoFicha2)) {
+                    ArrayList <Ficha> fichasUsadas = mural.obtenerFichasUsadas();
+                    if (continuar == 'N' && (!fichasUsadas.contains(ficha1) || !fichasUsadas.contains(ficha2))) {
                         System.out.println("====================================================");
                         System.out.println("========= No puede finalizar el mural. =============");
                         System.out.println("===== Debe utilizar las dos fichas al menos una vez. ");
@@ -522,6 +518,8 @@ public class InterfazConsola {
             sistema.agregarMural(mural);
             mural.guardarMuralOriginal();
             diseñador.agregarMural(mural);
+            diseñador.agregarFicha(ficha1);
+            diseñador.agregarFicha(ficha2);
             System.out.println("====================================================");
             System.out.println("============= MURAL CREADO CORRECTAMENTE ===========");
             System.out.println("====================================================");
@@ -547,7 +545,7 @@ public class InterfazConsola {
         System.out.println("=============== SELECCIONE UN MURAL ================");
         System.out.println("====================================================");
         for(int i= 0; i< sistema.getListaMurales().size(); i++){
-                System.out.println((i+1) + ")" + sistema.getListaMurales().get(i).getNombre());
+                System.out.println((i+1) + ")" + sistema.getListaMurales().get(i).getNombre() + " - by "+sistema.getListaMurales().get(i).getDiseñador().getNombre());
         }
         System.out.println("====================================================");
         System.out.println("============== Ingrese número del mural: ===========");
@@ -685,6 +683,7 @@ public class InterfazConsola {
             }
         }
         fichaSelec = sistema.getListaFichas().get(nFicha - 1);
+        mural.getDiseñador().agregarFicha(fichaSelec);
         //Ya con todos los datos se manda modificar la posicion
         mural.modificarPosicion (fila, columna, fichaSelec);
     }
@@ -750,6 +749,7 @@ public class InterfazConsola {
             }
         }
         fichaNueva = sistema.getListaFichas().get(nFicha - 1);
+        mural.getDiseñador().agregarFicha(fichaNueva);
         mural.reemplazarFicha(fichaVieja, fichaNueva);
     }
     

@@ -70,38 +70,32 @@ public class Diseñador implements Comparable {
         this.listaDeFichas = listaDeFichas;
     }
     
+    public void agregarFicha(Ficha ficha){
+        if (ficha!=null && !listaDeFichas.contains(ficha)){
+            listaDeFichas.add(ficha);
+        }
+    }
+    
     public int cantidadDeMurales() {
         return listaDeMurales.size();
     }
     
     //Aca podria reusarse el metodo nuevo que cree en Mural: obtenerFichasUsadas
     public int cantidadDeFichasDiferentes() {
-        ArrayList<Ficha> fichasDiferentes = new ArrayList<Ficha>();
-        for (int i = 0; i < listaDeMurales.size(); i++) {
-            Ficha[][] matriz = listaDeMurales.get(i).getMural();
-            for (int fila = 0; fila < matriz.length; fila++) {
-                for (int columna = 0; columna < matriz[fila].length; columna++) {
-                    Ficha ficha = matriz[fila][columna];
-                    if (ficha != null && !fichasDiferentes.contains(ficha)) {
-                        fichasDiferentes.add(ficha);
-                    }
-                }
+        ArrayList<Ficha> fichasDiferentes = new ArrayList<>();
+        for (int i = 0; i < listaDeFichas.size(); i++) {    
+            if (listaDeFichas.get(i) != null && !fichasDiferentes.contains(listaDeFichas.get(i))) {
+                fichasDiferentes.add(listaDeFichas.get(i));
             }
         }
         return fichasDiferentes.size();
     }
     
     public int cantidadDeColoresDiferentes() {
-        ArrayList<String> coloresDiferentes = new ArrayList<String>();
-        for (int i = 0; i < listaDeMurales.size(); i++) {
-            Ficha[][] matriz = listaDeMurales.get(i).getMural();
-            for (int fila = 0; fila < matriz.length; fila++) {
-                for (int columna = 0; columna < matriz[fila].length; columna++) {
-                    Ficha ficha = matriz[fila][columna];
-                    if (ficha != null && !coloresDiferentes.contains(ficha.getColor())) {
-                        coloresDiferentes.add(ficha.getColor());
-                    }
-                }
+        ArrayList<String> coloresDiferentes = new ArrayList<>();
+        for (int i = 0; i < listaDeFichas.size(); i++) {    
+            if (listaDeFichas.get(i) != null && !coloresDiferentes.contains(listaDeFichas.get(i).getColor())) {
+                coloresDiferentes.add(listaDeFichas.get(i).getColor());
             }
         }
         return coloresDiferentes.size();
