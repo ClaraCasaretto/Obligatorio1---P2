@@ -11,7 +11,7 @@ public class Sistema {
     
     private ArrayList<Diseñador>listaDiseñadores;
     private ArrayList<Ficha> listaFichas;
-    public ArrayList<Mural> listaMurales;
+    private ArrayList<Mural> listaMurales;
     
     //Constructor
     public Sistema(){
@@ -138,30 +138,6 @@ public class Sistema {
         int filaInicial
         int columnaInicial
     */
-    public class Similitud {
-        private Mural muralSimilar;
-        private int filaInicial;
-        private int columnaInicial;
-
-        public Similitud(Mural muralSimilar, int filaInicial, int columnaInicial) {
-            this.muralSimilar = muralSimilar;
-            this.filaInicial = filaInicial;
-            this.columnaInicial = columnaInicial;
-        }
-
-        public Mural getMuralSimilar() {
-            return muralSimilar;
-        }
-
-        public int getFilaInicial() {
-            return filaInicial;
-        }
-
-        public int getColumnaInicial() {
-            return columnaInicial;
-        }
-        //Esta clase en principio no necesitaria setters
-    }
     //Y esa clase es la que se devuelve en el metodo. O sea un arraylist de objetos de esa clase.
     public ArrayList<Similitud> compararMurales (Mural mural, int fila, int columna, int cantFilas, int cantColumnas){
         ArrayList<Similitud> similitudesEncontradas = new ArrayList<>();
@@ -172,10 +148,9 @@ public class Sistema {
         int limiteCol = matriz[0].length - cantColumnas + 1;
         
         //Se buscan los murales candidatos de la lista.
-        for (int i = 0; i <  listaMurales.size(); i++) { 
+        for (int i = 0; i <  listaMurales.size(); i++) {
             Ficha[][] candidato = listaMurales.get(i).getMural();
             //Se recorre el candidato de acuerdo a los limites para no recorrer todo al pedo
-            //Falta agregar comprobacion para que saltee el mural que viene por parametro
             if (mural!=listaMurales.get(i)){
                 for (int j = 0; j < limiteFila; j++) {
                     for (int k = 0; k < limiteCol; k++) {
